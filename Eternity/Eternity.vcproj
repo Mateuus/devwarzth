@@ -79,6 +79,7 @@
 				AdditionalOptions="/LTCG"
 				AdditionalDependencies="RaknetLibStatic.lib"
 				OutputFile="lib\r3dLib.lib"
+				AdditionalLibraryDirectories="./../External\RakNet\Lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -536,7 +537,9 @@
 			<Tool
 				Name="VCLibrarianTool"
 				AdditionalOptions="/LTCG"
+				AdditionalDependencies="RaknetLibStatic.lib"
 				OutputFile="lib\r3dLib_StatCRT_server.lib"
+				AdditionalLibraryDirectories="../External/RakNet/Lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

@@ -1,23 +1,23 @@
 Include
 
-C:\WarZTHSrc2\src\EclipseStudio\Sources\VoIP
-C:\WarZTHSrc2\src\GameEngine\gameobjects
-C:\WarZTHSrc2\src\External\Scaleform\Src\Kernel
-C:\WarZTHSrc2\src\EclipseStudio\Sources\multiplayer
-C:\WarZTHSrc2\src\External\Fury\Fury
-C:\WarZTHSrc2\src\EclipseStudio\Sources\ObjectsCode\WEAPONS
-C:\WarZTHSrc2\src\EclipseStudio\Sources\UI
-C:\WarZTHSrc2\src\EclipseStudio\Sources\ObjectsCode\AI
-C:\WarZTHSrc2\src\EclipseStudio\Sources\Editors
-C:\WarZTHSrc2\src\External\HShield\Include
+F:\NewUndead\src\EclipseStudio\Sources\VoIP
+F:\NewUndead\src\GameEngine\gameobjects
+F:\NewUndead\src\External\Scaleform\Src\Kernel
+F:\NewUndead\src\EclipseStudio\Sources\multiplayer
+F:\NewUndead\src\External\Fury\Fury
+F:\NewUndead\src\EclipseStudio\Sources\ObjectsCode\WEAPONS
+F:\NewUndead\src\EclipseStudio\Sources\UI
+F:\NewUndead\src\EclipseStudio\Sources\ObjectsCode\AI
+F:\NewUndead\src\EclipseStudio\Sources\Editors
+F:\NewUndead\src\External\HShield\Include
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include
 
 Lib
 
-C:\WarZTHSrc2\src\External\RakNet\Lib
-C:\WarZTHSrc2\src\External\FuncGuard\FuncGuard
-C:\WarZTHSrc2\src\External\HShield\Lib
-C:\WarZTHSrc2\src\EclipseStudio\Sources\VoIP
-C:\WarZTHSrc2\src\External\HShield\Lib\Win\x86\Multithreaded\AntiCrack
-C:\WarZTHSrc2\src\External\HShield\Sample\Src\NetworkLib
+F:\NewUndead\src\External\RakNet\Lib
+F:\NewUndead\src\External\FuncGuard\FuncGuard
+F:\NewUndead\src\External\HShield\Lib
+F:\NewUndead\src\EclipseStudio\Sources\VoIP
+F:\NewUndead\src\External\HShield\Lib\Win\x86\Multithreaded\AntiCrack
+F:\NewUndead\src\External\HShield\Sample\Src\NetworkLib
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86

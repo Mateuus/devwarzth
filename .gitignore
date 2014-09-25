@@ -55,3 +55,13 @@
 /Eternity/Debug_Server
 /Eternity/Release_NoCrashRpt
 /EclipseStudio/*.user
+/server/AdminConsole/AdminConsole/Release
+/server/HackShieldServer/Release
+/server/HackShieldServer/Debug
+/EclipseStudio/Final
+/EclipseStudio/Release
+/server/MasterServer/Release
+/server/MasterServer/Debug
+/server/AdminServer/logas
+/server/AdminServer/logms
+/server/ipch
