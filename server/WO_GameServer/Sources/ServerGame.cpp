@@ -75,45 +75,21 @@ void PlayGameServer()
     case GBGameInfo::MAPID_ServerTest:
       r3dGameLevel::SetHomeDir("WorkInProgress\\ServerTest");
       break;
-    case GBGameInfo::MAPID_WZ_Colorado: 
-      r3dGameLevel::SetHomeDir("WZ_Colorado"); 
+    case GBGameInfo::MAPID_WZ_Colorado:
+      r3dGameLevel::SetHomeDir("WZ_Colorado");
       break;
-	      case GBGameInfo::MAPID_Laskar: 
-      r3dGameLevel::SetHomeDir("Laskar_Village_V2"); 
+	case GBGameInfo::MAPID_UB_Cliffside:
+      r3dGameLevel::SetHomeDir("WZ_Cliffside");
       break;
-	      case GBGameInfo::MAPID_WZ_Cliffside_Farm: 
-      r3dGameLevel::SetHomeDir("WZ_Cliffside_Farm"); 
+    case GBGameInfo::MAPID_UB_CaliWood:
+      r3dGameLevel::SetHomeDir("CaliWood");
       break;
-	      case GBGameInfo::MAPID_WZ_RaccoonCity: 
-      r3dGameLevel::SetHomeDir("WZ_RaccoonCity"); 
+    case GBGameInfo::MAPID_UB_Valley:
+      r3dGameLevel::SetHomeDir("UB_Valley");
       break;
-	     case GBGameInfo::MAPID_WZ_RaccoonCity_Premium: 
-      r3dGameLevel::SetHomeDir("WZ_RaccoonCity_Premium"); 
+    case GBGameInfo::MAPID_UB_Area51:
+      r3dGameLevel::SetHomeDir("UB_Area51");
       break;
-	     case GBGameInfo::MAPID_WZ_CARCANFLY: 
-      r3dGameLevel::SetHomeDir("WZ_CARCANFLY"); 
-      break;
-     case GBGameInfo::MAPID_WZ_Cliffside_PVP: 
-      r3dGameLevel::SetHomeDir("WZ_Cliffside_PVP"); 
-      break;
-	 case GBGameInfo::MAPID_California: 
-      r3dGameLevel::SetHomeDir("California_V2"); 
-      break;
-	  	case GBGameInfo::MAPID_wo_wasteland: 
-		r3dGameLevel::SetHomeDir("wo_wasteland"); 
-		break;
-		case GBGameInfo::MAPID_wo_inferno: 
-		r3dGameLevel::SetHomeDir("wo_inferno"); 
-		break;
-		case GBGameInfo::MAPID_wo_eastern_bunker_tdm: 
-		r3dGameLevel::SetHomeDir("wo_eastern_bunker_tdm"); 
-		break;
-		case GBGameInfo::MAPID_WO_Grozny: 
-		r3dGameLevel::SetHomeDir("WO_Grozny"); 
-		break;
-		case GBGameInfo::MAPID_wo_shippingyard: 
-		r3dGameLevel::SetHomeDir("wo_shippingyard"); 
-		break;
   }
 
   r3dResetFrameTime();

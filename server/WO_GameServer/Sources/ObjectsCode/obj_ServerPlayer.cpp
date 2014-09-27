@@ -321,13 +321,16 @@ void obj_ServerPlayer::DoDeath()
 	loadout_->GamePos = GetPosition();
 	loadout_->Health  = 0;
 	// clear attachments
+	if(loadout_->GameMapId != GBGameInfo::MAPID_UB_Valley || loadout_->GameMapId != GBGameInfo::MAPID_UB_Area51)//Mateuus no Drop
+	{
 	loadout_->Attachment[0].Reset();
 	loadout_->Attachment[1].Reset();
+	}
 	//NOTE: server WZ_Char_SRV_SetStatus will clear player backpack, so make that CJobUpdateChar::Exec() won't update it
 	savedLoadout_ = *loadout_;
 
 	bool isDropSNP  = u_GetRandom() >= 0.90f ? false : true;
-	if (!profile_.ProfileData.isDevAccount)
+	if (!profile_.ProfileData.isDevAccount || loadout_->GameMapId != GBGameInfo::MAPID_UB_Valley || loadout_->GameMapId != GBGameInfo::MAPID_UB_Area51 )//Mateuus no Drop
 	{
 
 		// drop all items
@@ -1435,7 +1438,7 @@ BOOL obj_ServerPlayer::Update()
 
 	// AllrightTH : Raccoon City if pos y > 127 will kill and kick by server
 
-	if (loadout_->GameMapId == GBGameInfo::MAPID_WZ_RaccoonCity && GetPosition().Y > 127.0f || loadout_->GameMapId == GBGameInfo::MAPID_wo_eastern_bunker_tdm && GetPosition().Y > 16.8f)
+	/*if (loadout_->GameMapId == GBGameInfo::MAPID_WZ_RaccoonCity && GetPosition().Y > 127.0f || loadout_->GameMapId == GBGameInfo::MAPID_wo_eastern_bunker_tdm && GetPosition().Y > 16.8f)
 	{
 		gServerLogic.DoKillPlayer(this, this, storecat_INVALID, true);
 
@@ -1458,7 +1461,7 @@ BOOL obj_ServerPlayer::Update()
 
 		gServerLogic.LogCheat(peerId_, PKT_S2C_CheatWarning_s::CHEAT_Flying, false, "player over Y Position", " pos=%.2f",GetPosition().Y);
 		//gServerLogic.DisconnectPeer(peerId_, true, "player over Y Position");
-	}
+	}*/
 
 	// 	// afk kick
 	// 	const float AFK_KICK_TIME_IN_SEC = 90.0f;
@@ -1508,7 +1511,7 @@ void obj_ServerPlayer::UpdateGameWorldFlags()
 	loadout_->GameFlags = 0;
 
 	//Spawn Protection Code here
-	if(loadout_->GameMapId == GBGameInfo::MAPID_wo_eastern_bunker_tdm || loadout_->GameMapId == GBGameInfo::MAPID_wo_shippingyard || loadout_->GameMapId == GBGameInfo::MAPID_WO_Grozny)
+	if(loadout_->GameMapId == GBGameInfo::MAPID_UB_Valley || loadout_->GameMapId == GBGameInfo::MAPID_UB_Area51)
 	{
 		if((((r3dGetTime() - startPlayTime_) <= 20.0f)))
 		{

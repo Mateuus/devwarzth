@@ -294,7 +294,7 @@ repeat_the_menu:
 
 	gLoginSessionPoller.ForceTick(); // force to update that we joined the game
 
-	switch(gClientLogic().m_gameInfo.mapId) 
+		switch(gClientLogic().m_gameInfo.mapId) 
 	{
 	default: 
 		r3dError("invalid map id\n");
@@ -306,6 +306,18 @@ repeat_the_menu:
 		break;
 	case GBGameInfo::MAPID_WZ_Colorado: 
 		r3dGameLevel::SetHomeDir("WZ_Colorado"); 
+		break;
+	case GBGameInfo::MAPID_UB_Cliffside: 
+		r3dGameLevel::SetHomeDir("WZ_Cliffside"); 
+		break;
+	case GBGameInfo::MAPID_UB_CaliWood: 
+		r3dGameLevel::SetHomeDir("CaliWood"); 
+		break;
+	case GBGameInfo::MAPID_UB_Valley: 
+		r3dGameLevel::SetHomeDir("UB_Valley"); 
+		break;
+	case GBGameInfo::MAPID_UB_Area51: 
+		r3dGameLevel::SetHomeDir("UB_Area51"); 
 		break;
 	}
 

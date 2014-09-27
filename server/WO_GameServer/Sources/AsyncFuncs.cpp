@@ -613,7 +613,9 @@ int CJobUpdateChar::Exec()
 	CWOBackendReq req("api_SrvCharUpdate.aspx");
 	req.AddSessionInfo(CustomerID, SessionID);
 	req.AddParam("skey1",  g_ServerApiKey);
+	req.AddParam("map", slot.GameMapId);
 	req.AddParam("CharID", slot.LoadoutID);
+
 
 	// character status
 	char GamePos[256];
@@ -646,7 +648,7 @@ int CJobUpdateChar::Exec()
 	req.AddParam("legfall",        slot.legfall);
 	req.AddParam("bleeding",        slot.bleeding);
 
-	req.AddParam("SkillID0",	slot.Stats.skillid0);
+	/*req.AddParam("SkillID0",	slot.Stats.skillid0);
 	req.AddParam("SkillID1",	slot.Stats.skillid1);
 	req.AddParam("SkillID2",	slot.Stats.skillid2);
 	req.AddParam("SkillID3",	slot.Stats.skillid3);
@@ -679,11 +681,11 @@ int CJobUpdateChar::Exec()
 	req.AddParam("SkillID30",	slot.Stats.skillid30);
 	req.AddParam("SkillID31",	slot.Stats.skillid31);
 	req.AddParam("SkillID32",	slot.Stats.skillid32);
-	req.AddParam("SkillID33",	slot.Stats.skillid33);
+	req.AddParam("SkillID33",	slot.Stats.skillid33);*/
 
 	r3dOutToLog("UpdateData '%s'\n",slot.Gamertag);
-	if (slot.GameMapId != GBGameInfo::MAPID_California)
-	{
+	//if (slot.GameMapId != GBGameInfo::MAPID_California)
+	//{
 		if(!req.Issue())
 		{
 			r3dOutToLog("!!!! UpdateCharThread failed, code: %d, ans: %s\n", req.resultCode_, req.bodyStr_);
@@ -694,7 +696,7 @@ int CJobUpdateChar::Exec()
 			r3dOutToLog("UpdateChar %s Success\n",slot.Gamertag);
 			//Sleep(1000);
 		}
-	}
+	//}
 
 	if(Disconnect)
 	{

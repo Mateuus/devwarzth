@@ -881,7 +881,7 @@ bool ServerGameLogic::ApplyDamageToPlayer(GameObject* fromObj, obj_ServerPlayer*
 	r3d_assert(targetPlr);
 	if(targetPlr->loadout_->Alive == 0 || targetPlr->profile_.ProfileData.isGod)
 		return false;
-	if(targetPlr->loadout_->GameMapId == GBGameInfo::MAPID_Laskar) return false;
+//	if(targetPlr->loadout_->GameMapId == GBGameInfo::MAPID_Laskar) return false;
 
 	// can't damage players in safe zones (postbox now act like that)
 	if(IsServerPlayer(fromObj)) // Cannot damage same groups
@@ -1552,7 +1552,7 @@ void ServerGameLogic::CheckForObjectAroundPlayer(const r3dPoint3D& pos, float di
 void ServerGameLogic::GetStartSpawnPosition(const wiCharDataFull& loadout, r3dPoint3D* pos, float* dir,DWORD peerId)
 {
 	// if no map assigned yet, or new map, or newly created character (alive == 3)
-	if (loadout.GameMapId != GBGameInfo::MAPID_California)
+	if (loadout.GameMapId != GBGameInfo::MAPID_UB_Valley || loadout.GameMapId != GBGameInfo::MAPID_UB_Area51)
 	{
 		if(loadout.GameMapId == 0 || loadout.GameMapId != ginfo_.mapId || loadout.Alive == 3)
 		{
