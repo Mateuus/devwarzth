@@ -12,7 +12,7 @@
 #include "multiplayer/ClientGameLogic.h"
 #include "../TrueNature/Terrain.h"
 #ifdef FINAL_BUILD
-#include "AI_Player.h"
+#include "./../../EclipseStudio/Sources/ObjectsCode/AI/AI_Player.h"
 #endif
 
 bool g_bAllowPhysObjCreation = true;

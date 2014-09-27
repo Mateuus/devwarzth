@@ -202,7 +202,7 @@
 				EnableIntrinsicFunctions="true"
 				OmitFramePointers="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories=".\..\External;.\..\External\dxsdk\Include;.\..\External\PhysX\include;.\Sources;.\include;.\..\External\RakNet\Source;.\..\External\Berkelium\include"
+				AdditionalIncludeDirectories=".\..\External;.\..\External\dxsdk\Include;.\..\External\PhysX\include;.\Sources;.\include;.\..\External\RakNet\Source;.\..\External\Berkelium\include;.\..\External\Fury\Fury\;.\..\EclipseStudio\Sources\VoIP"
 				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS;FINAL_BUILD"
 				RuntimeLibrary="0"
 				BufferSecurityCheck="false"
@@ -233,6 +233,7 @@
 				AdditionalOptions="/LTCG"
 				AdditionalDependencies="RaknetLibStatic.lib"
 				OutputFile="lib\r3dLibF.lib"
+				AdditionalLibraryDirectories="./../External/RakNet/Lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
