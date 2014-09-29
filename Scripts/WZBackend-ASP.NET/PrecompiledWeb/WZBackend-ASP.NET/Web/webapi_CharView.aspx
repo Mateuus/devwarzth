@@ -1,0 +1,1 @@
+﻿<%@ page language="C#" autoeventwireup="true" inherits="Web_webapi_CharView, App_Web_vq46yoru" %>

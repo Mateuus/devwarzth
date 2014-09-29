@@ -267,7 +267,25 @@ void CUserProfile::ParseLoadouts(pugi::xml_node& xmlItem)
 		w.GameMapId   = xmlItem.attribute("GameMapId").as_int();
 		w.GameServerId= xmlItem.attribute("GameServerId").as_int();
 		w.GamePos = r3dPoint3D(0, 0, 0);
-		sscanf(xmlItem.attribute("GamePos").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+		switch(w.GameMapId)
+		{
+				case 2: // colodado map
+						sscanf(xmlItem.attribute("GamePos2").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+						break;
+				case 3: // Clifside MAP
+						sscanf(xmlItem.attribute("GamePos3").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+						break;
+				case 4: // CaliWood
+						sscanf(xmlItem.attribute("GamePos4").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+						break;
+				case 5: // Valley
+						sscanf(xmlItem.attribute("GamePos5").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+						break;
+				case 6: // Area51
+						sscanf(xmlItem.attribute("GamePos").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+						break;
+	
+		}
 		w.GameFlags   = xmlItem.attribute("GameFlags").as_int();
 
 		w.HeroItemID  = xmlItem.attribute("HeroItemID").as_int();

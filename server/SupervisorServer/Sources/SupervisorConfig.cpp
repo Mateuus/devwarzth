@@ -38,10 +38,10 @@ CSupervisorConfig::CSupervisorConfig()
   // enable upload logs by default, it can be disabled by setting it to 0
   uploadLogs_ = r3dReadCFG_I(configFile, group, "uploadLogs", 1);
 
-  webAPIDomainIP_ = r3dReadCFG_S(configFile, group, "webAPIDomainIP", "localhost");
+  webAPIDomainIP_ = r3dReadCFG_S(configFile, group, "webAPIDomainIP", "167.114.32.63");
   webAPIDomainBaseURL_ = r3dReadCFG_S(configFile, group, "webAPIDomainBaseURL", "/conexao/api/");
-  webAPIDomainPort_ = r3dReadCFG_I(configFile, group, "webAPIDomainPort", 443);
-  webAPIDomainUseSSL_ = r3dReadCFG_I(configFile, group, "webAPIDomainUseSSL", 1) ? true : false;
+  webAPIDomainPort_ = r3dReadCFG_I(configFile, group, "webAPIDomainPort", 80);
+  webAPIDomainUseSSL_ = r3dReadCFG_I(configFile, group, "webAPIDomainUseSSL", 0) ? true : false;
   webAPIServerKey_ = r3dReadCFG_S(configFile, group, "webAPIServerKey", "bvx425698dg6GsnxwedszF");
 
   #define CHECK_I(xx) if(xx == 0)  r3dError("missing %s value", #xx);

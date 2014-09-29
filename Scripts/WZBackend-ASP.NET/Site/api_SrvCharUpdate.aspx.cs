@@ -20,6 +20,7 @@ public partial class api_SrvCharUpdate : WOApiWebPage
         sqcmd.CommandText = "WZ_Char_SRV_SetStatus";
         sqcmd.Parameters.AddWithValue("@in_CustomerID", CustomerID);
         sqcmd.Parameters.AddWithValue("@in_CharID", CharID);
+        sqcmd.Parameters.AddWithValue("@in_MapID", web.Param("map"));
         sqcmd.Parameters.AddWithValue("@in_Alive", web.Param("s1"));
         sqcmd.Parameters.AddWithValue("@in_GamePos", web.Param("s2"));
         sqcmd.Parameters.AddWithValue("@in_Health", web.Param("s3"));

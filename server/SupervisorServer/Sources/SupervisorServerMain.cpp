@@ -184,7 +184,7 @@ int main(int argc, char* argv[])
     r3dOutToLog("API: %s\n", gSupervisorConfig->webAPIDomainIP_.c_str());
 
     // sleep 2 sec, waiting for master to start
-    if(stricmp(gSupervisorConfig->webAPIDomainIP_.c_str(), "localhost") == 0)
+    if(stricmp(gSupervisorConfig->webAPIDomainIP_.c_str(), "167.114.32.63") == 0)
 	::Sleep(2000);
 
     supervisorServerLoop();

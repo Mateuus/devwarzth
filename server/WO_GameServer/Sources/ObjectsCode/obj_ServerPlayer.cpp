@@ -309,7 +309,7 @@ void obj_ServerPlayer::ValidateAttachments()
 		}
 	}
 }
-
+/*
 void obj_ServerPlayer::DoDeath()
 {
 	gServerLogic.LogInfo(peerId_, "Death", ""); CLOG_INDENT;
@@ -346,7 +346,7 @@ void obj_ServerPlayer::DoDeath()
 				isDropSNP = true;
 				}
 				else*/
-				BackpackDropItem(i);
+			/*	BackpackDropItem(i);
 
 
 			}
@@ -368,6 +368,72 @@ void obj_ServerPlayer::DoDeath()
 	}
 
 	
+
+	gServerLogic.ApiPlayerUpdateChar(this);
+
+	SetLatePacketsBarrier("death");
+
+	return;
+}*/
+
+void obj_ServerPlayer::DoDeath()
+{
+	gServerLogic.LogInfo(peerId_, "Death", ""); CLOG_INDENT;
+	
+	deathTime     = r3dGetTime();
+	//ViruZMMO Legend nao dropa item  
+	
+	// Descomentar para Premium não dorpar item e editar Procedure structure for [WZ_Char_SRV_SetStatus]
+	/* 
+	if(profile_.ProfileData.AccountType != 5)
+	{
+	*/ 
+		
+	// não dropa item no mapa de pvp
+	if(loadout_->GameMapId != GBGameInfo::MAPID_UB_Valley || loadout_->GameMapId != GBGameInfo::MAPID_UB_Area51)
+	{
+	// drop all items
+	for(int i=0; i<loadout_->BackpackSize; i++)
+	{
+		const wiInventoryItem& wi = loadout_->Items[i];
+		if(wi.itemID > 0) {
+			BackpackDropItem(i);
+		}
+	}
+	
+	// drop not-default backpack as well
+	if(loadout_->BackpackID != 20176)
+	{
+		// create network object
+		obj_DroppedItem* obj = (obj_DroppedItem*)srv_CreateGameObject("obj_DroppedItem", "obj_DroppedItem", GetRandomPosForItemDrop());
+		obj->SetNetworkID(gServerLogic.GetFreeNetId());
+		obj->NetworkLocal = true;
+		// vars
+		obj->m_Item.itemID   = loadout_->BackpackID;
+		obj->m_Item.quantity = 1;
+	}
+} // não dropa item no mapa pvp
+
+	// set that character is dead
+	loadout_->Alive   = 0;
+	loadout_->GamePos = GetPosition();
+	loadout_->Health  = 0;
+	// clear attachments
+	
+	/*
+	if(profile_.ProfileData.AccountType != 5)
+	{
+	*/
+
+	if(loadout_->GameMapId != GBGameInfo::MAPID_UB_Valley || loadout_->GameMapId != GBGameInfo::MAPID_UB_Area51)
+	{
+	loadout_->Attachment[0].Reset();
+	loadout_->Attachment[1].Reset();
+	} // Nao dropa item no mapa de pvp
+	
+
+	//NOTE: server WZ_Char_SRV_SetStatus will clear player backpack, so make that CJobUpdateChar::Exec() won't update it
+	savedLoadout_ = *loadout_;
 
 	gServerLogic.ApiPlayerUpdateChar(this);
 
@@ -2878,6 +2944,8 @@ void obj_ServerPlayer::OnNetPacket(const PKT_C2C_PlayerReload_s& n)
 	if(wi.quantity <= 0)
 		wi.Reset();
 	// drop current ammo clip (if have clip speficied and have ammo)
+	if(loadout_->GameMapId != GBGameInfo::MAPID_UB_Valley || loadout_->GameMapId != GBGameInfo::MAPID_UB_Area51)
+	 {
 	if(wpn->getPlayerItem().Var1 > 0 && wpn->getPlayerItem().Var2 > 0)
 	{
 		obj_DroppedItem* obj = (obj_DroppedItem*)srv_CreateGameObject("obj_DroppedItem", "obj_DroppedItem", GetRandomPosForItemDrop());
@@ -2887,6 +2955,7 @@ void obj_ServerPlayer::OnNetPacket(const PKT_C2C_PlayerReload_s& n)
 		obj->m_Item.itemID   = wpn->getPlayerItem().Var2;
 		obj->m_Item.quantity = 1;
 		obj->m_Item.Var1     = wpn->getPlayerItem().Var1;
+	}
 	}
 	// reload weapon
 
