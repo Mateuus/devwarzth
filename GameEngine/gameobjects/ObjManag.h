@@ -124,9 +124,7 @@ public:
 
 	r3dPoint3D		m_MinimapOrigin;
 	r3dPoint3D		m_MinimapSize;
-#ifdef WO_SERVER
-	int spawncar;
-#endif
+
 
 #ifndef WO_SERVER
 	class BulletShellMngr* m_BulletMngr;

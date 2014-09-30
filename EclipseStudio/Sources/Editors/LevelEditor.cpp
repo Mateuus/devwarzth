@@ -8396,7 +8396,7 @@ void Editor_Level :: ProcessObjects()
 			ClassNames.push_back( "obj_Building" );
 			ClassNames.push_back( "obj_LightMesh" );
 			ClassNames.push_back( "obj_Sprite" );
-#if VEHICLES_ENABLED
+#if VEHICLES_ENABLED //Codex Carros
 			ClassNames.push_back( "obj_Vehicle" );
 #endif
 

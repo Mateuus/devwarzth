@@ -37,7 +37,7 @@ BOOL obj_DroppedItem::Load(const char *fname)
 
 BOOL obj_DroppedItem::OnCreate()
 {
-	m_bEnablePhysics = false;
+	m_bEnablePhysics = true;;
 	DisablePhysX = true;
 	r3d_assert(m_Item.itemID);
 	

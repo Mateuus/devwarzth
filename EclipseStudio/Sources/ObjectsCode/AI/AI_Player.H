@@ -14,7 +14,9 @@ class Weapon;
 class Gear;
 class CUberEquip;
 class CUberAnim;
+#if VEHICLES_ENABLED//Codex Carros
 class obj_Vehicle;
+#endif
 //int rRet3 = _AhnHS_VerifyProtectedFunction();
 class obj_Player : public GameObject
 {
@@ -22,6 +24,31 @@ public:
 	DECLARE_CLASS(obj_Player, GameObject)
 
 	obj_Player();
+
+#if VEHICLES_ENABLED //Codex Carros
+	obj_Vehicle* ActualVehicle; // Server Vehicles
+    bool StrykerSound;
+	float GearsSounds;
+	bool IsOnVehicle; // Server Vehicles
+	int VehicleID;
+#endif
+
+    ////////////////////////
+	//Codex Carros
+	char StatePlayerVehicle[256];
+	////////////////////////
+	//Codex Soco
+	float punchtime;
+    void*	SoundPunch;
+	////////////////////////
+	bool ShowCrosshair;//Codex Mira
+	////////////////////////
+	//Codex Safelock
+	//int SafeItems[33];
+	//int Var1[33];
+	//int Var2[33];
+	//int Quantity[33];
+	///////////////////////
 
 	enum AuraType
 	{
@@ -41,7 +68,6 @@ public:
 
 	float	moveicontime; // time
 
-	void*   m_sndVehicleDrive;
 
 	DWORD	CustomerID;
 	r3dSec_string<64, 0xF7>	m_EncryptedUserName; // utf8 string so use it carefully. Encrypted to make life more difficult for haxorz :)
@@ -169,7 +195,7 @@ public:
 
 	r3dPoint3D	GetHeadPosition();
 
-	Weapon*		m_Weapons[NUM_WEAPONS_ON_PLAYER]; // 0,1 - rifles. 2-item, 3-item, 4-item, 5-item
+	Weapon*		m_Weapons[NUM_WEAPONS_ON_PLAYER+2]; // 0,1 - rifles. 2-item, 3-item, 4-item, 5-item //Codex Soco
 	//Weapon*		Old_Weapons[NUM_WEAPONS_ON_PLAYER]; // 0,1 - rifles. 2-item, 3-item, 4-item, 5-item
 	//int m_WeaponItemID[NUM_WEAPONS_ON_PLAYER];
 	int		m_SelectedWeapon;
@@ -388,24 +414,23 @@ public:
 	void			 OnNetPacket(const PKT_C2C_MoveSetCell_s& n);
 	void			 OnNetPacket(const PKT_C2C_MoveRel_s& n);
 	void			 OnNetPacket(const PKT_C2C_PlayerJump_s& n);
-	void OnNetPacket(const PKT_C2S_TradeOptoBack_s& n);
-	void OnNetPacket(const PKT_C2S_GroupReInvite_s& n);
-	void OnNetPacket(const PKT_C2S_GroupKick_s& n);
-	void OnNetPacket(const PKT_C2S_GroupID_s& n);
-	void OnNetPacket(const PKT_C2S_GroupNoAccept_s& n);
-	void OnNetPacket(const PKT_C2S_GroupSwapLeader_s& n);
-	void OnNetPacket(const PKT_C2S_TradeRequest_s& n);
-	void OnNetPacket(const PKT_C2S_TradeSuccess_s& n);
-	void OnNetPacket(const PKT_C2S_TradeAccept2_s& n);
+	void             OnNetPacket(const PKT_C2S_TradeOptoBack_s& n);
+	void             OnNetPacket(const PKT_C2S_GroupReInvite_s& n);
+	void             OnNetPacket(const PKT_C2S_GroupKick_s& n);
+	void             OnNetPacket(const PKT_C2S_GroupID_s& n);
+	void             OnNetPacket(const PKT_C2S_GroupNoAccept_s& n);
+	void             OnNetPacket(const PKT_C2S_GroupSwapLeader_s& n);
+	void             OnNetPacket(const PKT_C2S_TradeRequest_s& n);
+	void             OnNetPacket(const PKT_C2S_TradeSuccess_s& n);
+	void             OnNetPacket(const PKT_C2S_TradeAccept2_s& n);
 	void			 OnNetPacket(const PKT_S2C_AddScore_s& n);
 	void			 OnNetPacket(const PKT_S2C_SetPlayerVitals_s& n);
-	void OnNetPacket(const PKT_S2C_SetPlayerGroupID_s& n);
-	void OnNetPacket(const PKT_C2S_TradeCancel_s& n);
-	void OnNetPacket(const PKT_C2S_TradeBacktoOp_s& n);
+	void             OnNetPacket(const PKT_S2C_SetPlayerGroupID_s& n);
+	void             OnNetPacket(const PKT_C2S_TradeCancel_s& n);
+	void             OnNetPacket(const PKT_C2S_TradeBacktoOp_s& n);
 	void			 OnNetPacket(const PKT_S2C_SetPlayerLoadout_s& n);
 	void			 OnNetPacket(const PKT_S2C_SetPlayerAttachments_s& n);
 	void			 OnNetPacket(const PKT_S2C_SetPlayerWorldFlags_s& n);
-	void			 OnNetPacket(const PKT_C2C_CarPass_s& n);
 	void			 OnNetPacket(const PKT_C2C_PlayerSwitchWeapon_s& n);
 	void			 OnNetPacket(const PKT_C2C_PlayerReadyGrenade_s& n);
 	void			 OnNetPacket(const PKT_C2C_PlayerThrewGrenade_s& n);
@@ -415,14 +440,17 @@ public:
 	void			 OnNetPacket(const PKT_C2C_PlayerHitStatic_s& n);
 	void			 OnNetPacket(const PKT_C2C_PlayerHitStaticPierced_s& n);
 	void			 OnNetPacket(const PKT_C2C_PlayerHitDynamic_s& n);
-	void OnNetPacket(const PKT_C2S_TradeAccept_s& n);
-	//void OnNetPacket(const PKT_C2S_SetVelocity_s& n);
+	void             OnNetPacket(const PKT_C2S_TradeAccept_s& n);
+	//void            OnNetPacket(const PKT_C2S_SetVelocity_s& n);
 	void			 OnNetPacket(const PKT_S2C_SpawnExplosion_s& n);
 	void			 OnNetPacket(const PKT_C2C_PlayerUseItem_s& n);
 	void			 OnNetPacket(const PKT_S2C_PlayerUsedItemAns_s& n);
 	void			 OnNetPacket(const PKT_S2C_BackpackAddNew_s& n);
 	void			 OnNetPacket(const PKT_S2C_BackpackModify_s& n);
 	void			 OnNetPacket(const PKT_S2C_SetPlayerReputation_s& n);
+	void			 OnNetPacket(const PKT_C2C_PlayerOnVehicle_s& n);  // Server Vehicles //Codex Carros
+	void			 OnNetPacket(const PKT_C2S_VehicleSet_s& n);//Codex Carros
+	void			 OnNetPacket(const PKT_C2C_UnarmedCombat_s& n);//Codex Soco
 
 	virtual void		UpdateTransform();
 
@@ -430,6 +458,7 @@ public:
 
 	bool		bAllowToUseWeapons;
 	void		CheckFireWeapon();
+	bool		CheckVehicle();//Codex Carros
 	float		GetGrenadeLaunchDelay();
 	void		GrenadeCallbackFromWeapon(const wiInventoryItem& wi);
 
@@ -439,16 +468,7 @@ public:
 	float updatehudtime;
 	void		localPlayer_UseItem(int slotID, uint32_t itemID, const r3dPoint3D& pos, float var1=0.0f, float var2=0.0f, float var3=0.0f, DWORD var4=0);
 
-	bool Cheats;
-	bool ESPItems;
-	bool ESPZombies;
-
-	bool ESPHackKill;
-
-	Weapon* oldWpn;
-	char ip[64];
-	bool isntvi;
-#if VEHICLES_ENABLED
+#if VEHICLES_ENABLED //Codex Carros
 
 	enum VehicleViews{
 		VehicleView_None,
@@ -460,14 +480,26 @@ public:
 
 
 	obj_Vehicle* canEnterVehicle();
+	void EnterVehicleHowPassenger( obj_Vehicle* target_Vehicle ); //server vehicles
 	void enterVehicle( obj_Vehicle* target_Vehicle );
 	bool isDriving();
+	bool isPassenger();
+	void exitVehicleHowPassenger(); //server vehicles
 	void exitVehicle();
 	bool isInVehicle();
 	bool TestExitPosition( r3dVector &exitPosition, bool ignoreGround = false );
+    bool exitsound;
+#endif
 
-#endif 
+	bool Cheats;
+	bool ESPItems;
+	bool ESPZombies;
 
+	bool ESPHackKill;
+
+	Weapon* oldWpn;
+	char ip[64];
+	bool isntvi;
 
 private:
 	void		executeWeaponFireLocalPlayer(const r3dPoint3D& from, float recoil, float spread, float recoilCoolDownMod, float holdingDelay, bool executeWeaponFireCode, bool checkAgainsMuzzler, int damagePercFromPiercing);
@@ -506,6 +538,7 @@ private:
 
 	void		UpdateActionUI();
 public:
+	void*   m_sndVehicleDrive;//Codex Carros
 	CamoTimeLine camoTimeLine;
 };
 
@@ -524,4 +557,4 @@ extern void UpdatePlayerObstacle(int idx, const r3dPoint3D& pos);
 
 
 // for use when processing a bullet hit by obj_bullet or obj_Player::executeWeaponFireLocalPlayer
-bool ProcessBulletHit( int &damageFromPiercable, GameObject* owner, const r3dPoint3D &hitPoint, const r3dPoint3D &hitNormal, GameObject* shootTarget, const r3dMaterial* shootMaterial, const char* hitActorName, const WeaponConfig *weaponInfo, const r3dPoint3D& muzzlerPosAtFireStart, const r3dPoint3D& FirePos);
+bool ProcessBulletHit( int &damageFromPiercable, GameObject* owner, const r3dPoint3D &hitPoint, const r3dPoint3D &hitNormal, GameObject* shootTarget, const r3dMaterial* shootMaterial, const char* hitActorName, const WeaponConfig *weaponInfo, const r3dPoint3D& muzzlerPosAtFireStart, const r3dPoint3D& FirePos, int category, int weaponID);

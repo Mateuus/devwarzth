@@ -221,9 +221,7 @@ int LoadLevel_Objects( float BarRange )
 		GameWorld().m_MinimapSize.z = 100;
 	}
 	GameWorld().numbuilding = 0;
-#ifdef WO_SERVER
-	GameWorld().spawncar = xmlLevel.attribute("spawncar").as_int();
-#endif
+
 	int i = 0;
 	char name[512] = {0};
 	sprintf(name,"%s\\LevelData\\ObjectData_%d.bin", r3dGameLevel::GetHomeDir(),i++);

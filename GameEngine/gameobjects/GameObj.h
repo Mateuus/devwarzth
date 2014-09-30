@@ -63,7 +63,9 @@ enum EGameObjectType
 	OBJTYPE_CollectionProxy		= (1<<13),
 	OBJTYPE_ItemSpawnPoint		= (1<<14),
 	OBJTYPE_SharedUsableItem	= (1<<15),
-	OBJTYPE_Vehicle				= (1<<16),
+	#if VEHICLES_ENABLED
+	OBJTYPE_Vehicle				= (1<<16), //Codex Carros
+    #endif
 	OBJTYPE_Zombie				= (1<<17),
 	OBJTYPE_Human				= (1<<18), // obj_Player
 	OBJTYPE_NPC					= (1<<19),

@@ -50,7 +50,7 @@
 				Optimization="3"
 				EnableIntrinsicFunctions="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories=".\..\..\External\dxsdk\Include;.\..\..\External\PhysX\Foundation\include;.\..\..\External\PhysX\Physics\include;.\..\..\External\PhysX\PhysXLoader\include;.\..\..\External\PhysX\nxCharacter\include;.\..\..\External\PhysX\Cooking\include;.\Sources;.\..\..\eternity\include;.\..\..\External\ChilKat\Include"
+				AdditionalIncludeDirectories=".\..\..\External\dxsdk\Include;.\Sources;.\..\..\eternity\include;.\..\..\External\ChilKat\Include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;WO_SERVER; DISABLE_PHYSX"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"

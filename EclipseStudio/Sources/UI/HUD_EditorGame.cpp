@@ -753,7 +753,7 @@ void EditorGameHUD :: SetCameraPure ( r3dCamera &Cam)
 #endif
 		GameFOV = CurrentRig.FOV;
 
-	// vehicle camera
+	// vehicle camera //Codex Carros
 	extern bool SetCameraPlayerVehicle(const obj_Player* pl, r3dCamera &Cam);
 	if(SetCameraPlayerVehicle(pl, Cam))
 	{

@@ -17,7 +17,7 @@ enum PHYSICS_COLLISION_GROUPS
 	PHYSCOLL_NON_PLAYER_GEOMETRY = 7, // special type of PHYSCOLL_COLLISION_GEOMETRY that player shouldn't collide with, but everything else will collide
 	PHYSCOLL_PROJECTILES = 8, // group for rockets, grenades, etc.
 #if VEHICLES_ENABLED
-	PHYSCOLL_VEHICLE_WHEEL = 9, // group for vehicle wheels
+	PHYSCOLL_VEHICLE_WHEEL = 9, // group for vehicle wheels //Codex Carros
 #endif
 	
 	PHYSCOLL_NETWORKPLAYER = 16,

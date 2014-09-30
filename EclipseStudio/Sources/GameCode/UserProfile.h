@@ -46,19 +46,22 @@ enum STORE_CATEGORIES
 
 	storecat_FPSAttachment  = 19,
 
-	storecat_ASR		= 20,	// Assault Rifles
-	storecat_SNP		= 21,	// Sniper rifles
-	storecat_SHTG		= 22,	// Shotguns
-	storecat_MG			= 23,	// Machine guns
-	storecat_HG			= 25,	// handguns
-	storecat_SMG		= 26,	// submachineguns
-	storecat_GRENADE	= 27,	// grenades and everything that you can throw. Mines shouldn't be in this group!!!
+	storecat_ASR		 = 20,	// Assault Rifles
+	storecat_SNP		 = 21,	// Sniper rifles
+	storecat_SHTG		 = 22,	// Shotguns
+	storecat_MG			 = 23,	// Machine guns
+	storecat_HG			 = 25,	// handguns
+	storecat_SMG		 = 26,	// submachineguns
+	storecat_GRENADE	 = 27,	// grenades and everything that you can throw. Mines shouldn't be in this group!!!
 	storecat_UsableItem  = 28,	// usable items
-	storecat_MELEE		 =29,   // melee items (knifes, etc)
-	storecat_Food		= 30,	// food 
-	storecat_Water		= 33,	// water
-	storecat_CraftRe		= 51,
-	storecat_CraftCom		= 50,
+	storecat_MELEE		 = 29,   // melee items (knifes, etc)
+	storecat_Food		 = 30,	// food 
+	storecat_Water		 = 33,	// water
+	storecat_Vehicle     = 34,   //Codex Carros
+	storecat_punch		 = 35,   //Codex Soco
+	storecat_ShootVehicle  = 51, //Codex Carros
+	storecat_CraftRe	 = 51,
+	storecat_CraftCom	 = 50,
 
 	storecat_NUM_ITEMS, // should be the last one!!
 };

@@ -140,20 +140,22 @@ virtual	void		OnNetData(DWORD peerId, const r3dNetPacketHeader* packetData, int 
 	 DEFINE_PACKET_FUNC(PKT_C2S_JoinGameReq);
 	 DEFINE_PACKET_FUNC(PKT_C2S_StartGameReq);
 	 DEFINE_PACKET_FUNC(PKT_C2S_Temp_Damage);
-//	  DEFINE_PACKET_FUNC(PKT_C2S_TradeRequest);
+//	 DEFINE_PACKET_FUNC(PKT_C2S_TradeRequest);
 	 DEFINE_PACKET_FUNC(PKT_C2C_ChatMessage);
 	  
 	
 	 
-	  DEFINE_PACKET_FUNC(PKT_S2C_CheatMsg);
+	 DEFINE_PACKET_FUNC(PKT_S2C_CheatMsg);
 	 DEFINE_PACKET_FUNC(PKT_C2S_DataUpdateReq);
 	 DEFINE_PACKET_FUNC(PKT_C2S_SecurityRep);
 	 DEFINE_PACKET_FUNC(PKT_C2S_UseNetObject);
-	  DEFINE_PACKET_FUNC(PKT_C2s_PlayerSetMissionStatus);
+	 DEFINE_PACKET_FUNC(PKT_C2s_PlayerSetMissionStatus);
 	 DEFINE_PACKET_FUNC(PKT_C2S_CreateNote);
-	  DEFINE_PACKET_FUNC(PKT_C2S_PlayerAcceptMission);
+	 DEFINE_PACKET_FUNC(PKT_C2S_PlayerAcceptMission);
 	 DEFINE_PACKET_FUNC(PKT_C2S_Admin_PlayerKick);
 	 DEFINE_PACKET_FUNC(PKT_C2S_Admin_GiveItem);
+	 DEFINE_PACKET_FUNC(PKT_C2S_VehicleSet);//Codex Carros
+	 DEFINE_PACKET_FUNC(PKT_C2S_StatusPlayerVehicle);//Codex Carros
 	 void		OnPKT_C2S_ScreenshotData(DWORD peerId, const int size, const char* data);
 	 
 	void		ValidateMove(GameObject* fromObj, const void* packetData, int packetSize);
@@ -168,6 +170,7 @@ int		  Cmd_Kicktome(obj_ServerPlayer* plr, const char* cmd);
 	int		  Cmd_Kickgoto(obj_ServerPlayer* plr, const char* cmd);
 	int		  Cmd_Kickall(obj_ServerPlayer* plr, const char* cmd);
 	int		  Cmd_Kick(obj_ServerPlayer* plr, const char* cmd);
+	int		  Cmd_crtveh(obj_ServerPlayer* plr, const char* cmd);//Codex Carros
 	int		  Cmd_Kickban(obj_ServerPlayer* plr, const char* cmd);
 	obj_ServerPlayer* FindPlayer(char* Name);
 	obj_ServerPlayer* FindPlayerCustom(int CustomerID);
@@ -236,7 +239,6 @@ void	LogCheat(DWORD peerId, int LogID, int disconnect, const char* msg, const ch
 	ServerGameLogic();
 	virtual ~ServerGameLogic();
 
-	void SpawnNewCar();
 	void		Init(const GBGameInfo& ginfo, uint32_t creatorID);
 	void		CreateHost(int port);
 	void		OnGameStart();

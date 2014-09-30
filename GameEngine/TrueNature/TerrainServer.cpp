@@ -33,7 +33,6 @@
 #include "HeightNormalVert.h"
 
 #include "r3dDeviceQueue.h"
-#include "ServerVehicleManager.h"
 
 extern int __r3dDisplayMipLevels;
 #ifndef FINAL_BUILD
@@ -2115,9 +2114,14 @@ r3dTerrain::UpdatePhysHeightField ()
 	PxFilterData filterData(PHYSCOLL_STATIC_GEOMETRY, 0, 0, 0);
 	aHeightFieldShape->setSimulationFilterData(filterData);
 	PxFilterData qfilterData(1<<PHYSCOLL_STATIC_GEOMETRY, 0, 0, 0);
-#if VEHICLES_ENABLED
-	VehicleSetupDrivableShapeQueryFilterData(qfilterData);
-#endif
+	/////////////////////////////////////////////
+	//Codex Carros
+     #ifndef WO_SERVER
+     #if VEHICLES_ENABLED
+	 VehicleSetupDrivableShapeQueryFilterData(qfilterData);
+     #endif
+     #endif
+	/////////////////////////////////////////////
 	aHeightFieldShape->setQueryFilterData(qfilterData);
 
 	g_pPhysicsWorld->AddActor(*physicsTerrain);
@@ -2389,9 +2393,14 @@ void r3dTerrain::CreateDefaultPhysicsData()
 	PxFilterData filterData(PHYSCOLL_STATIC_GEOMETRY, 0, 0, 0);
 	aHeightFieldShape->setSimulationFilterData(filterData);
 	PxFilterData qfilterData(1<<PHYSCOLL_STATIC_GEOMETRY, 0, 0, 0);
-#if VEHICLES_ENABLED
-	VehicleSetupDrivableShapeQueryFilterData(qfilterData);
-#endif
+	/////////////////////////////////////////////
+	//Codex Carros
+     #ifndef WO_SERVER
+     #if VEHICLES_ENABLED
+	 VehicleSetupDrivableShapeQueryFilterData(qfilterData);
+     #endif
+     #endif
+	/////////////////////////////////////////////
 	aHeightFieldShape->setQueryFilterData(qfilterData);
 	r3d_assert(_CrtCheckMemory());
 }
@@ -2441,9 +2450,14 @@ void r3dTerrain::CreatePhysicsData ( const Shorts& source )
 	PxFilterData filterData(PHYSCOLL_STATIC_GEOMETRY, 0, 0, 0);
 	aHeightFieldShape->setSimulationFilterData(filterData);
 	PxFilterData qfilterData(1<<PHYSCOLL_STATIC_GEOMETRY, 0, 0, 0);
-#if VEHICLES_ENABLED
-	VehicleSetupDrivableShapeQueryFilterData(qfilterData);
-#endif
+	/////////////////////////////////////////////
+	//Codex Carros
+     #ifndef WO_SERVER
+     #if VEHICLES_ENABLED
+	 VehicleSetupDrivableShapeQueryFilterData(qfilterData);
+     #endif
+     #endif
+	/////////////////////////////////////////////
 	aHeightFieldShape->setQueryFilterData(qfilterData);
 
 	g_pPhysicsWorld->AddActor(*physicsTerrain);

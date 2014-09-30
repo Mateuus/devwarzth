@@ -15,6 +15,9 @@
 #include "ObjectsCode/obj_ServerBarricade.h"
 #include "ServerWeapons/ServerWeapon.h"
 
+//Codex Carros
+#include "ObjectsCode/Vehicles/obj_ServerVehicle.h"
+
 #include "../../EclipseStudio/Sources/ObjectsCode/Gameplay/ZombieStates.h"
 
 #include "../../GameEngine/ai/AutodeskNav/AutodeskNavMesh.h"
@@ -667,6 +670,21 @@ bool obj_Zombie::StartAttack(const GameObject* trg)
 		return false;
 	if(hardObjLock == trg->GetSafeID())
 		return true;
+
+	//Codex Carros
+	////////////////////////////////////////////////////////////////////
+	if (((obj_ServerPlayer*)trg)->PlayerOnVehicle==true) //server Vehicle
+	{
+		int ID = ((obj_ServerPlayer*)trg)->IDOFMyVehicle;
+		GameObject* from = GameWorld().GetNetworkObject(ID);
+		if (from)
+			trg=from;
+		_zai_AttackRadius        = 3.0f;
+	}
+	else
+		_zai_AttackRadius        = 1.2f;
+	//////////////////////////////////////////////////////////////////
+
 	if(ZombieDisabled)
 		return false;
 	if(hardObjLock == trg->GetSafeID())
@@ -1015,6 +1033,30 @@ BOOL obj_Zombie::Update()
 
 	case EZombieStates::ZState_Attack:
 		{
+			//Codex Carros
+            /////////////////////////////////////////////////////////////////////////////////////////
+			GameObject* from = GameWorld().GetObject(hardObjLock); // Server Vehicles
+			if (from && from->Class->Name == "obj_Vehicle")
+			{
+				obj_Vehicle* Vehicle= static_cast< obj_Vehicle* > ( from );
+				if (Vehicle && Vehicle->OccupantsVehicle>0)
+				{
+					float dist = (Vehicle->GetPosition() - GetPosition()).Length();
+					if (dist>6)
+					{
+						StopAttack();
+						break;
+					}
+
+					PKT_C2S_DamageCar_s n2;
+					n2.WeaponID = 9999999;
+					n2.CarID = Vehicle->GetNetworkID();
+					gServerLogic.p2pBroadcastToAll(NULL, &n2, sizeof(n2), true);
+					break;
+				}
+			}
+			/////////////////////////////////////////////////////////////////////////////////////////
+
 			obj_ServerPlayer* trg = IsServerPlayer(GameWorld().GetObject(hardObjLock));
 			if(!trg || trg->loadout_->Alive == 0)
 			{
@@ -1311,6 +1353,9 @@ bool obj_Zombie::ApplyDamage(GameObject* fromObj, float damage, int bodyPart, ST
 
 	float dmg = damage;
 
+	if (damageSource == storecat_Vehicle || damageSource == storecat_ShootVehicle) // Server Vehicles //Codex Carros
+		  ZombieHealth= 0.0f;
+
 
 	if(damageSource != storecat_MELEE && bodyPart == 1) // everything except for melee: one shot in head = kill
 		dmg = 1000; 
@@ -1349,6 +1394,15 @@ bool obj_Zombie::ApplyDamage(GameObject* fromObj, float damage, int bodyPart, ST
 	if(ZombieHealth <= 0.0f)
 	{
 		DoDeath();
+
+		//Codex Carros
+		////////////////////////////////////////////////////////////////////////////////////////////
+		/*if(fromObj->Class->Name == "obj_ServerPlayer" && damageSource != storecat_ShootVehicle)
+		{
+			obj_ServerPlayer* plr = (obj_ServerPlayer*)fromObj;
+			gServerLogic.AddPlayerReward(plr, RWD_ZombieKill);
+		}*/
+		/////////////////////////////////////////////////////////////////////////////////////////////
 
 		if(fromObj->Class->Name == "obj_ServerPlayer")
 		{
