@@ -1356,8 +1356,10 @@ bool obj_Zombie::ApplyDamage(GameObject* fromObj, float damage, int bodyPart, ST
 	if (damageSource == storecat_Vehicle || damageSource == storecat_ShootVehicle) // Server Vehicles //Codex Carros
 		  ZombieHealth= 0.0f;
 
+	/*if(damageSource != storecat_MELEE && bodyPart == 1) // everything except for melee: one shot in head = kill
+		dmg = 1000; */
 
-	if(damageSource != storecat_MELEE && bodyPart == 1) // everything except for melee: one shot in head = kill
+	if(damageSource != storecat_MELEE && bodyPart == 1 && damageSource != storecat_punch)//Codex Soco // everything except for melee: one shot in head = kill 
 		dmg = 1000; 
 
 	if (HeroItemID == 20204 && damageSource != storecat_MELEE && bodyPart == 1)

@@ -2709,6 +2709,7 @@ void obj_ServerPlayer::UseItem_ApplyEffect(const PKT_C2C_PlayerUseItem_s& n, uin
 		break;
 	case WeaponConfig::ITEMID_ZombieRepellent:
 	case 301321: // gas
+	case 101398: // Toobox
 		//todo
 		break;
 
@@ -4389,6 +4390,7 @@ BOOL obj_ServerPlayer::OnNetReceive(DWORD EventID, const void* packetData, int p
 		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2S_ValidateEnvironment);
 		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2S_SendHelpCall);
 		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2S_CarKill); // Server Vehicles //Codex Carros
+		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2C_UnarmedCombat); // Unarmed Combat //Codex Soco
 		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2S_HackShieldLog);
 		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2S_BulletValidateConfig);
 	}
@@ -4510,7 +4512,7 @@ void obj_ServerPlayer::OnNetPacket(const PKT_C2S_CarKill_s& n) // Server Vehicle
 	}
 
 
-	/*if (n.weaponID==101399)//Codex Soco
+	if (n.weaponID==101399)//Codex Soco
 	{
 		int isHead = (n.extra_info == 1);
 		if (target->isObjType(OBJTYPE_Zombie))
@@ -4518,7 +4520,7 @@ void obj_ServerPlayer::OnNetPacket(const PKT_C2S_CarKill_s& n) // Server Vehicle
 		else if (target->isObjType(OBJTYPE_Human))
 		{
 			obj_ServerPlayer* targetPlr = IsServerPlayer(target);
-			if (/* targetPlr->loadout_->GameMapId == GBGameInfo::MAPID_WZ_PVE_Colorado ||*//* targetPlr->PlayerOnVehicle == true || targetPlr->loadout_->Alive <=0 || targetPlr->profile_.ProfileData.isGod || (targetPlr->loadout_->GameFlags & wiCharDataFull::GAMEFLAG_isSpawnProtected) || (targetPlr->loadout_->GameFlags & wiCharDataFull::GAMEFLAG_NearPostBox))
+			if (/* targetPlr->loadout_->GameMapId == GBGameInfo::MAPID_WZ_PVE_Colorado ||*/ targetPlr->PlayerOnVehicle == true || targetPlr->loadout_->Alive <=0 || targetPlr->profile_.ProfileData.isGod || (targetPlr->loadout_->GameFlags & wiCharDataFull::GAMEFLAG_isSpawnProtected) || (targetPlr->loadout_->GameFlags & wiCharDataFull::GAMEFLAG_NearPostBox))
 			return;
 			else
 			gServerLogic.ApplyDamage(this, target, GetPosition(), 16.0f, true, storecat_Vehicle, isSpecial);
@@ -4526,7 +4528,7 @@ void obj_ServerPlayer::OnNetPacket(const PKT_C2S_CarKill_s& n) // Server Vehicle
 		return;
 
 
-	}*/
+	}
 
 	if (target->isObjType(OBJTYPE_Zombie))
 	{
@@ -4589,6 +4591,15 @@ void obj_ServerPlayer::OnNetPacket(const PKT_C2S_CarKill_s& n) // Server Vehicle
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Codex Soco
+void obj_ServerPlayer::OnNetPacket(const PKT_C2C_UnarmedCombat_s& n)  // Unarmed Combat
+{
+	RelayPacket(&n, sizeof(n), false);
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

@@ -229,6 +229,7 @@ public:
 	void		OnNetPacket(const PKT_C2S_FallingDamage_s& n);
 	void		OnNetPacket(const PKT_C2C_PlayerOnVehicle_s& n); // Server Vehicles //Codex Carros
 	void		OnNetPacket(const PKT_C2S_CarKill_s& n); // Server Vehicles //Codex Carros
+	void		OnNetPacket(const PKT_C2C_UnarmedCombat_s& n); // Unarmed Combat //Codex Soco
 	void 		OnNetPacket(const PKT_C2C_PlayerCraftItem_s& n);
 	void 		OnNetPacket(const PKT_C2S_TradeOptoBack_s& n);
 	void		OnNetPacket(const PKT_C2S_PlayerWeapDataRep_s& n);

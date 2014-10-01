@@ -128,7 +128,7 @@ void HUDPause::eventBackpackUseItem(int slotID)
 	obj_Player* plr = gClientLogic().localPlayer_;
 	r3d_assert(plr);
 	wiInventoryItem& wi = plr->CurLoadout.Items[slotID];
-	r3d_assert(wi.itemID && wi.quantity < 0);
+	//r3d_assert(wi.itemID && wi.quantity < 0); //Codex Carros
 
 	/*{
 	const WeaponConfig* wc = g_pWeaponArmory->getWeaponConfig(wi.itemID);
@@ -298,7 +298,7 @@ void HUDPause::eventBackpackUseItem(int slotID)
 			return;
 		}
 	}
-			if(wi.itemID == 301321) // Server Vehicles Gasoline
+	if(wi.itemID == 301321) // Server Vehicles Gasoline
 	{
 		obj_Player* plr = gClientLogic().localPlayer_;
 		if (plr->isInVehicle())
@@ -628,13 +628,6 @@ void HUDPause::eventShowContextMenuCallback(r3dScaleformMovie* pMovie, const Sca
 		Scaleform::GFx::Value var[2];
 		var[0].SetString("$FR_PAUSE_CHANGEBP");
 		var[1].SetInt(6);
-		gfxMovie.Invoke("_root.api.Main.Inventory.addContextMenuOption", var, 2);
-	}
-	else if (wi.itemID == 301321) // Jerry Can
-	{
-		Scaleform::GFx::Value var[2];
-		var[0].SetString("$FR_PAUSE_VEHICLE_REFUEL");
-		var[1].SetInt(7);
 		gfxMovie.Invoke("_root.api.Main.Inventory.addContextMenuOption", var, 2);
 	}
 	else if(wac){

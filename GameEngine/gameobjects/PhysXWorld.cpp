@@ -33,7 +33,7 @@
 #pragma comment(lib, "PhysX3VehicleCHECKED.lib")
 #pragma comment(lib, "RepX3CHECKED.lib")
 #pragma comment(lib, "RepXUpgrader3CHECKED.lib")
-/*#elif defined(FINAL_BUILD)
+#elif defined(FINAL_BUILD)//Mateuus
 #pragma comment(lib, "PhysX3_x86.lib")
 #pragma comment(lib, "PhysX3Cooking_x86.lib")
 #pragma comment(lib, "PhysX3_x86.lib")
@@ -43,7 +43,7 @@
 #pragma comment(lib, "PhysX3Extensions.lib")
 #pragma comment(lib, "PhysX3Vehicle.lib")
 #pragma comment(lib, "RepX3.lib")
-#pragma comment(lib, "RepXUpgrader3.lib")*/
+#pragma comment(lib, "RepXUpgrader3.lib")
 #else // RELEASE
 #ifndef WO_SERVER
 #pragma comment(lib, "PhysX3PROFILE_x86.lib")
@@ -262,8 +262,8 @@ public:
 
 		if (code > PxErrorCode::eDEBUG_WARNING && code != PxErrorCode::eINVALID_PARAMETER && code != PxErrorCode::ePERF_WARNING) // TEMP eINVALID_PARAMETER check until PhysX 3.1.1
 			r3dError("PhysX Error (%s): '%s' at file %s, line %d\n", errorCode, message, file, line);
-		else
-			r3dOutToLog("PhysX Warning (%s): '%s' at file %s, line %d\n", errorCode, message, file, line);
+		/*else
+			r3dOutToLog("PhysX Warning (%s): '%s' at file %s, line %d\n", errorCode, message, file, line);*/
 	}
 } myErrorCallback;
 
@@ -618,8 +618,9 @@ void PhysXWorld::StartSimulation()
 	m_VehicleManager->UpdateInput();
 #endif
 #endif
-//#ifndef FINAL_BUILD
-	PhysXScene->setVisualizationParameter(PxVisualizationParameter::eSCALE, /*d_physx_debug->GetInt()?1.0f:*/0.0f);
+#ifndef FINAL_BUILD
+	//PhysXScene->setVisualizationParameter(PxVisualizationParameter::eSCALE, /*d_physx_debug->GetInt()?1.0f:*/0.0f);
+	PhysXScene->setVisualizationParameter(PxVisualizationParameter::eSCALE, d_physx_debug->GetInt()?1.0f:0.0f);//Mateuus
 	PhysXScene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_SHAPES,	1.0f);
 	PhysXScene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_AABBS,	0.0f);
 	PhysXScene->setVisualizationParameter(PxVisualizationParameter::eBODY_MASS_AXES,	0.0f);
@@ -628,7 +629,7 @@ void PhysXWorld::StartSimulation()
 	PhysXScene->setVisualizationParameter(PxVisualizationParameter::eJOINT_LIMITS,	0.0f);
 	PhysXScene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_EDGES,	0.0f);
 	PhysXScene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_FNORMALS,	0.0f);
-//#endif
+#endif
 
 	if(!DisablePhysXSimulation)
 	{
