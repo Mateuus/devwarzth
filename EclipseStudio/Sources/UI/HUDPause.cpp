@@ -425,7 +425,7 @@ void HUDPause::eventChangeBackpack(r3dScaleformMovie* pMovie, const Scaleform::G
 	if(slotFrom == -1)
 		return;
 
-	if ( /*gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Area51 ||*/ gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Valley /*|| gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_ServerTest*/)//Mateuus no drop
+	if ( /*gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Area51 ||*/ gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Terra /*|| gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_ServerTest*/)//Mateuus no drop
 	{
 
 		Scaleform::GFx::Value var[3];
@@ -623,7 +623,7 @@ void HUDPause::eventShowContextMenuCallback(r3dScaleformMovie* pMovie, const Sca
 
 	//warz.events.PauseEvents.eventShowContextMenuCallback(loc2.itemID, this.DraggedItem.slotID);
 
-	if ( /*gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Area51 || */gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Valley/* || gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_ServerTest*/)//Mateuus no drop
+	if ( /*gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Area51 || */gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Terra/* || gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_ServerTest*/)//Mateuus no drop
 	{
     Scaleform::GFx::Value var[2];
 	var[0].SetString("$FR_PAUSE_INVENTORY_DROP_ITEM");
@@ -802,7 +802,7 @@ void HUDPause::eventContextMenu_Action(r3dScaleformMovie* pMovie, const Scalefor
 	case 6:
 		if(bc)
 		{
-        if (/* gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Area51 ||*/ gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Valley /*|| gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_ServerTest*/)//Mateuus no drop
+        if (/* gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Area51 ||*/ gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Terra /*|| gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_ServerTest*/)//Mateuus no drop
 	     {
 		   Scaleform::GFx::Value var[3];
 		   var[0].SetString("Cant Change Backpack in PvP maps");
@@ -819,7 +819,7 @@ void HUDPause::eventContextMenu_Action(r3dScaleformMovie* pMovie, const Scalefor
 		break;
 
 	case 7:
-        if (/* gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Area51 ||*/ gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Valley /*|| gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_ServerTest*/)//Mateuus no drop
+        if (/* gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Area51 ||*/ gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Terra /*|| gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_ServerTest*/)//Mateuus no drop
 	    {
 	    Scaleform::GFx::Value var[3];
 		var[0].SetString("Cant drop item in PvP maps");
