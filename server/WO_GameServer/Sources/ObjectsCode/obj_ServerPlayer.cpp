@@ -1579,7 +1579,7 @@ void obj_ServerPlayer::UpdateGameWorldFlags()
 	loadout_->GameFlags = 0;
 
 	//Spawn Protection Code here
-	if(loadout_->GameMapId == GBGameInfo::MAPID_UB_Valley || loadout_->GameMapId == GBGameInfo::MAPID_UB_Area51)
+	if(loadout_->GameMapId == GBGameInfo::MAPID_UB_Valley || loadout_->GameMapId == GBGameInfo::MAPID_UB_Area51 || loadout_->GameMapId == GBGameInfo::MAPID_UB_CryZ || loadout_->GameMapId == GBGameInfo::MAPID_UB_Terra)
 	{
 		if((((r3dGetTime() - startPlayTime_) <= 20.0f)))
 		{
@@ -2913,7 +2913,7 @@ void obj_ServerPlayer::OnNetPacket(const PKT_C2C_PlayerReload_s& n)
 	if(wi.quantity <= 0)
 		wi.Reset();
 	// drop current ammo clip (if have clip speficied and have ammo)
-	if(loadout_->GameMapId != GBGameInfo::MAPID_UB_Valley || loadout_->GameMapId != GBGameInfo::MAPID_UB_Area51)
+	if(loadout_->GameMapId != GBGameInfo::MAPID_UB_Valley/* || loadout_->GameMapId != GBGameInfo::MAPID_UB_Area51*/)
 	 {
 	if(wpn->getPlayerItem().Var1 > 0 && wpn->getPlayerItem().Var2 > 0)
 	{
