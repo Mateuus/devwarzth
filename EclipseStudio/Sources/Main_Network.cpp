@@ -317,7 +317,13 @@ repeat_the_menu:
 		r3dGameLevel::SetHomeDir("UB_Valley"); 
 		break;
 	case GBGameInfo::MAPID_UB_Area51: 
-		r3dGameLevel::SetHomeDir("UB_Area51"); 
+		r3dGameLevel::SetHomeDir("UB_Deserto"); 
+		break;
+	case GBGameInfo::MAPID_UB_CryZ: 
+		r3dGameLevel::SetHomeDir("UB_CryZ"); 
+		break;
+	case GBGameInfo::MAPID_UB_Terra: 
+		r3dGameLevel::SetHomeDir("UB_Terra"); 
 		break;
 	}
 

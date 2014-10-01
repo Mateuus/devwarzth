@@ -383,17 +383,11 @@ void obj_ServerPlayer::DoDeath()
 	gServerLogic.LogInfo(peerId_, "Death", ""); CLOG_INDENT;
 	
 	deathTime     = r3dGetTime();
-	//ViruZMMO Legend nao dropa item  
-	
-	// Descomentar para Premium não dorpar item e editar Procedure structure for [WZ_Char_SRV_SetStatus]
-	/* 
-	if(profile_.ProfileData.AccountType != 5)
-	{
-	*/ 
-		
+
 	// não dropa item no mapa de pvp
-	if(loadout_->GameMapId != GBGameInfo::MAPID_UB_Valley || loadout_->GameMapId != GBGameInfo::MAPID_UB_Area51)
+	if(loadout_->GameMapId != GBGameInfo::MAPID_ServerTest)
 	{
+
 	// drop all items
 	for(int i=0; i<loadout_->BackpackSize; i++)
 	{
@@ -421,13 +415,8 @@ void obj_ServerPlayer::DoDeath()
 	loadout_->GamePos = GetPosition();
 	loadout_->Health  = 0;
 	// clear attachments
-	
-	/*
-	if(profile_.ProfileData.AccountType != 5)
-	{
-	*/
 
-	if(loadout_->GameMapId != GBGameInfo::MAPID_UB_Valley || loadout_->GameMapId != GBGameInfo::MAPID_UB_Area51)
+	if(loadout_->GameMapId != GBGameInfo::MAPID_ServerTest)
 	{
 	loadout_->Attachment[0].Reset();
 	loadout_->Attachment[1].Reset();

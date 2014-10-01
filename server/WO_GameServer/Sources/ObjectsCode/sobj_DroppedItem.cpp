@@ -9,7 +9,7 @@
 
 #include "sobj_DroppedItem.h"
 
-const float DROPPED_ITEM_EXPIRE_TIME = 60 * 60.0f; // 60 min
+const float DROPPED_ITEM_EXPIRE_TIME = 15 * 60.0f; // 15 min
 
 IMPLEMENT_CLASS(obj_DroppedItem, "obj_DroppedItem", "Object");
 AUTOREGISTER_CLASS(obj_DroppedItem);

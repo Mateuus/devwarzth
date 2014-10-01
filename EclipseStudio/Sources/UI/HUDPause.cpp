@@ -384,8 +384,7 @@ void HUDPause::eventBackpackUseItem(int slotID)
 
 void HUDPause::eventChangeBackpack(r3dScaleformMovie* pMovie, const Scaleform::GFx::Value* args, unsigned argCount)
 {
-	if ( gClientLogic().m_gameInfo.mapId != 5 || gClientLogic().m_gameInfo.mapId != 6 )
-	{
+
 	r3d_assert(argCount==2);
 	int bpslotID = args[0].GetInt();
 	uint32_t itemID = args[1].GetUInt();
@@ -426,9 +425,21 @@ void HUDPause::eventChangeBackpack(r3dScaleformMovie* pMovie, const Scaleform::G
 	if(slotFrom == -1)
 		return;
 
-	if(plr->ChangeBackpack(slotFrom))
+	if ( gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Area51 || gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Valley /*|| gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_ServerTest*/)//Mateuus no drop
 	{
-		{
+
+		Scaleform::GFx::Value var[3];
+		var[0].SetString("Cant Change Backpack in PvP maps");
+		var[1].SetBoolean(true);
+		var[2].SetString("");
+		gfxMovie.Invoke("_root.api.showInfoMsg", var, 3);
+		return;
+	}
+	else
+	{	
+	 if(plr->ChangeBackpack(slotFrom))
+	   {
+		 {
 			Scaleform::GFx::Value var[11];
 			var[0].SetString(slot.Gamertag);
 			var[1].SetNumber(slot.Health);
@@ -442,23 +453,17 @@ void HUDPause::eventChangeBackpack(r3dScaleformMovie* pMovie, const Scaleform::G
 			var[9].SetNumber(slot.BackpackSize);
 			var[10].SetNumber(slot.Stats.SkillXPPool);
 			gfxMovie.Invoke("_root.api.updateClientSurvivor", var, 11);
+		 }
 
-		}
 		reloadBackpackInfo();
 		updateSurvivorTotalWeight();
 		gfxMovie.Invoke("_root.api.changeBackpackSuccess", "");
 		showInventory();
 		Deactivate();
 		showInventory();
+	   }
+		
 	}
-	}else{	
-		Scaleform::GFx::Value var[3];
-		var[0].SetString("Cant Change Backpack in PvP maps");
-		var[1].SetBoolean(true);
-		var[2].SetString("");
-		gfxMovie.Invoke("_root.api.showInfoMsg", var, 3);
-		return;
-	 }
 }
 
 void HUDPause::eventMsgBoxCallback(r3dScaleformMovie* pMovie, const Scaleform::GFx::Value* args, unsigned argCount)
@@ -618,11 +623,21 @@ void HUDPause::eventShowContextMenuCallback(r3dScaleformMovie* pMovie, const Sca
 
 	//warz.events.PauseEvents.eventShowContextMenuCallback(loc2.itemID, this.DraggedItem.slotID);
 
-	Scaleform::GFx::Value var[2];
+	if ( gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Area51 || gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Valley/* || gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_ServerTest*/)//Mateuus no drop
+	{
+    Scaleform::GFx::Value var[2];
+	var[0].SetString("$FR_PAUSE_INVENTORY_DROP_ITEM");
+	var[1].SetInt(7);
+	gfxMovie.Invoke("_root.api.Main.Inventory.addContextMenuOption", var, 2);
+	
+	}
+	else
+	{
+    Scaleform::GFx::Value var[2];
 	var[0].SetString("$FR_PAUSE_INVENTORY_DROP_ITEM");
 	var[1].SetInt(1);
 	gfxMovie.Invoke("_root.api.Main.Inventory.addContextMenuOption", var, 2);
-
+	}
 	if(bc)
 	{
 		Scaleform::GFx::Value var[2];
@@ -787,12 +802,32 @@ void HUDPause::eventContextMenu_Action(r3dScaleformMovie* pMovie, const Scalefor
 	case 6:
 		if(bc)
 		{
+        if ( gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Area51 || gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Valley /*|| gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_ServerTest*/)//Mateuus no drop
+	     {
+		   Scaleform::GFx::Value var[3];
+		   var[0].SetString("Cant Change Backpack in PvP maps");
+		   var[1].SetBoolean(true);
+		   var[2].SetString("");
+		   gfxMovie.Invoke("_root.api.showInfoMsg", var, 3);
+		 }
+		 else
+		 {	
 			gfxMovie.Invoke("_root.api.Main.showChangeBackpack", "");
+		 }
 			return;
 		}
 		break;
 
 	case 7:
+        if ( gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Area51 || gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_UB_Valley /*|| gClientLogic().m_gameInfo.mapId == GBGameInfo::MAPID_ServerTest*/)//Mateuus no drop
+	    {
+	    Scaleform::GFx::Value var[3];
+		var[0].SetString("Cant drop item in PvP maps");
+		var[1].SetBoolean(true);
+		var[2].SetString("");
+		gfxMovie.Invoke("_root.api.showInfoMsg", var, 3);
+		}
+		return;
 		break;
 
 	case 8: // STACK CLIPS
