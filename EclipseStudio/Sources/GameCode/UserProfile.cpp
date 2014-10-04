@@ -267,7 +267,7 @@ void CUserProfile::ParseLoadouts(pugi::xml_node& xmlItem)
 		w.GameMapId   = xmlItem.attribute("GameMapId").as_int();
 		w.GameServerId= xmlItem.attribute("GameServerId").as_int();
 		w.GamePos = r3dPoint3D(0, 0, 0);
-		switch(w.GameMapId)
+		/*switch(w.GameMapId)
 		{
 				case 2: // colodado map
 						sscanf(xmlItem.attribute("GamePos2").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
@@ -284,8 +284,30 @@ void CUserProfile::ParseLoadouts(pugi::xml_node& xmlItem)
 				case 6: // Area51
 						sscanf(xmlItem.attribute("GamePos").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
 						break;
+				case 7: // CryZ
+						sscanf(xmlItem.attribute("GamePos6").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+						break;
+				case 8: // Terra
+						sscanf(xmlItem.attribute("GamePos7").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+						break;
 	
-		}
+		}*/
+
+		if(w.GameMapId == 2) //Colorado
+           sscanf(xmlItem.attribute("GamePos2").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+		else if(w.GameMapId == 3) //Clifside MAP
+           sscanf(xmlItem.attribute("GamePos3").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+		else if (w.GameMapId == 4)// CaliWood
+		   sscanf(xmlItem.attribute("GamePos4").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+		else if (w.GameMapId == 5)// Valley
+		   sscanf(xmlItem.attribute("GamePos5").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+		else if (w.GameMapId == 6)// Area51
+		   sscanf(xmlItem.attribute("GamePos").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+		else if (w.GameMapId == 7)// CryZ
+		   sscanf(xmlItem.attribute("GamePos6").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+		else if (w.GameMapId == 8)// Terra
+		   sscanf(xmlItem.attribute("GamePos7").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+
 		w.GameFlags   = xmlItem.attribute("GameFlags").as_int();
 
 		w.HeroItemID  = xmlItem.attribute("HeroItemID").as_int();
@@ -294,10 +316,10 @@ void CUserProfile::ParseLoadouts(pugi::xml_node& xmlItem)
 		w.LegsIdx     = xmlItem.attribute("LegsIdx").as_int();
 
 		w.ClanID      = xmlItem.attribute("ClanID").as_int();
-			w.GroupID      = xmlItem.attribute("GroupID").as_int();
-			w.Mission1      = xmlItem.attribute("Mission1").as_int();
-				w.bleeding      = xmlItem.attribute("bleeding").as_int();
-				w.legfall      = xmlItem.attribute("legfall").as_int();
+		w.GroupID      = xmlItem.attribute("GroupID").as_int();
+		w.Mission1      = xmlItem.attribute("Mission1").as_int();
+		w.bleeding      = xmlItem.attribute("bleeding").as_int();
+		w.legfall      = xmlItem.attribute("legfall").as_int();
 		w.ClanRank    = xmlItem.attribute("ClanRank").as_int();
 		r3dscpy(w.ClanTag, xmlItem.attribute("ClanTag").value());
 		w.ClanTagColor= xmlItem.attribute("ClanTagColor").as_int();

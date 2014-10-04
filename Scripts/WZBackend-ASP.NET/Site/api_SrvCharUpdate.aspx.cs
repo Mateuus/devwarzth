@@ -40,10 +40,10 @@ public partial class api_SrvCharUpdate : WOApiWebPage
         sqcmd.Parameters.AddWithValue("@in_Stat04", web.Param("ts04"));
         sqcmd.Parameters.AddWithValue("@in_Stat05", web.Param("ts05"));
 
-  sqcmd.Parameters.AddWithValue("@in_GroupID", web.Param("GroupID"));
- sqcmd.Parameters.AddWithValue("@in_legfall", web.Param("legfall"));
- sqcmd.Parameters.AddWithValue("@in_bleeding", web.Param("bleeding"));
- sqcmd.Parameters.AddWithValue("@in_Mission1", web.Param("Mission1"));
+        sqcmd.Parameters.AddWithValue("@in_GroupID", web.Param("GroupID"));
+        sqcmd.Parameters.AddWithValue("@in_legfall", web.Param("legfall"));
+        sqcmd.Parameters.AddWithValue("@in_bleeding", web.Param("bleeding"));
+        sqcmd.Parameters.AddWithValue("@in_Mission1", web.Param("Mission1"));
         if (!CallWOApi(sqcmd))
             return;
     }

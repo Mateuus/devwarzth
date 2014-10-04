@@ -31,7 +31,13 @@ public partial class api_GetProfile1 : WOApiWebPage
             xml.Append(xml_attr("TimePlayed", reader["TimePlayed"]));
             xml.Append(xml_attr("GameMapId", reader["GameMapId"]));
             xml.Append(xml_attr("GameServerId", reader["GameServerId"]));
-            xml.Append(xml_attr("GamePos", reader["GamePos"]));
+            xml.Append(xml_attr("GamePos", reader["GamePos"]));// Area51
+            xml.Append(xml_attr("GamePos2", reader["GamePos2"]));// Colorado
+            xml.Append(xml_attr("GamePos3", reader["GamePos3"]));// Clifside MAP
+            xml.Append(xml_attr("GamePos4", reader["GamePos4"]));// CaliWood
+            xml.Append(xml_attr("GamePos5", reader["GamePos5"]));// Valley
+            xml.Append(xml_attr("GamePos6", reader["GamePos6"]));// CryZ
+            xml.Append(xml_attr("GamePos7", reader["GamePos7"]));// Terra
             xml.Append(xml_attr("GameFlags", reader["GameFlags"]));
             xml.Append(xml_attr("Health", reader["Health"]));
             xml.Append(xml_attr("Hunger", reader["Food"]));
