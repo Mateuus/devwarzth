@@ -1623,41 +1623,69 @@ void ServerGameLogic::GetStartSpawnPosition(const wiCharDataFull& loadout, r3dPo
 	// if no map assigned yet, or new map, or newly created character (alive == 3)
 	if (loadout.GameMapId != GBGameInfo::MAPID_UB_Valley || loadout.GameMapId != GBGameInfo::MAPID_UB_Area51 || loadout.GameMapId != GBGameInfo::MAPID_UB_CryZ || loadout.GameMapId != GBGameInfo::MAPID_UB_Terra)
 	{
-		GetSpawnPositionNewPlayer(loadout.GamePos, pos, dir);
-		return;
+		if(loadout.GameMapId == 0 || loadout.GameMapId != ginfo_.mapId || loadout.Alive == 3)
+		{
+			GetSpawnPositionNewPlayer(loadout.GamePos, pos, dir);
+			// move spawn pos at radius
+			//pos->x += u_GetRandom(10, 120);
+			//pos->z += u_GetRandom(10, 120);
+			r3dOutToLog("new spawn at position %f %f %f\n", pos->x, pos->y, pos->z);
+			return;
+		} 
+
+		// alive at current map
+		if(loadout.GameMapId && (loadout.GameMapId == ginfo_.mapId) && loadout.Alive == 1)
+		{
+			*pos = loadout.GamePos;
+			*dir = loadout.GameDir;
+			r3dOutToLog("alive at position %f %f %f\n", pos->x, pos->y, pos->z);
+			/*	bool isinSafe = false;
+			for(int i=0; i<gPostBoxesMngr.numPostBoxes_; i++)
+			{
+			obj_ServerPostBox* pbox = gPostBoxesMngr.postBoxes_[i];
+			float dist = (loadout.GamePos - pbox->GetPosition()).Length();
+			if(dist < pbox->useRadius)
+			{
+			isinSafe = true;
+			}
+			}
+			if (!isinSafe)
+			{
+			GetSpawnPositionAfterDeath(loadout.GamePos, pos , dir);
+			//pos->x += u_GetRandom(5, 30);
+			//pos->z += u_GetRandom(5, 30);
+
+			//float height = pos->y;
+			//if (Terrain) // set height on terrain
+			//pos->y = Terrain->GetHeight((int)pos->x,(int)pos->z);
+
+			r3dOutToLog("alive at position %f %f %f\n", pos->x, pos->y, pos->z);
+			char chatmessage[128] = {0};
+			PKT_C2C_ChatMessage_s n;
+			sprintf(chatmessage, "You have been teleported to safe location.");
+			r3dscpy(n.gamertag, "<System>");
+			r3dscpy(n.msg, chatmessage);
+			n.msgChannel = 1;
+			n.userFlag = 2;
+			// fuck yeah i dont have peerid.
+			net_->SendToPeer(&n, sizeof(n),peerId, true);
+			}*/
+			return;
+		}
+
+		// revived (alive == 2) - spawn to closest spawn point
+		if(loadout.GameMapId && loadout.Alive == 2)
+		{
+			GetSpawnPositionAfterDeath(loadout.GamePos, pos , dir);
+			// move spawn pos at radius
+			//pos->x += u_GetRandom(10, 120);
+			//pos->z += u_GetRandom(10, 120);
+			r3dOutToLog("revived at position %f %f %f\n", pos->x, pos->y, pos->z);
+			return;
+		}
+
 	}
-
-	switch(loadout.Alive)  
-        {  
-			case 1: 
-			{ 
-				if((loadout.GameMapId == ginfo_.mapId) && loadout.GameMapId != 0)
-				{
-						*pos = loadout.GamePos; 
-						*dir = loadout.GameDir;
-						return;
-				}
-				else 
-				{ 
-					GetSpawnPositionNewPlayer(loadout.GamePos, pos, dir); 
-					return; 
-				} 
-			} 
-			case 2:  
-			{  
-				GetSpawnPositionAfterDeath(loadout.GamePos, pos, dir);  
-				pos->x += u_GetRandom(-_glm_SpawnRadius, _glm_SpawnRadius);  
-				pos->z += u_GetRandom(-_glm_SpawnRadius, _glm_SpawnRadius);  
-				return;          
-			}  
-			case 3:  
-			{  
-				GetSpawnPositionNewPlayer(loadout.GamePos, pos, dir);  
-				return;  
-			}  
-        }  
-
-	/*else
+	else
 	{
 		GetSpawnPositionNewPlayer(loadout.GamePos, pos, dir);
 		// move spawn pos at radius
@@ -1665,10 +1693,11 @@ void ServerGameLogic::GetStartSpawnPosition(const wiCharDataFull& loadout, r3dPo
 		//pos->z += u_GetRandom(10, 120);
 		r3dOutToLog("new spawn in caliwood at position %f %f %f\n", pos->x, pos->y, pos->z);
 		return;
-	} */
+	} 
 
+	GetSpawnPositionNewPlayer(loadout.GamePos, pos, dir);
 	r3dOutToLog("%d %d %d\n", loadout.GameMapId, loadout.Alive, ginfo_.mapId);
-	r3d_assert(false && "GetStartSpawnPosition");
+	//	r3d_assert(false && "GetStartSpawnPosition");
 }
 
 void ServerGameLogic::GetSpawnPositionNewPlayer(const r3dPoint3D& GamePos, r3dPoint3D* pos, float* dir)
