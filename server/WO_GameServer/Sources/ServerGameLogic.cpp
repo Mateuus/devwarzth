@@ -699,6 +699,31 @@ void ServerGameLogic::DoKillPlayer(GameObject* sourceObj, obj_ServerPlayer* targ
 		p2pBroadcastToActive(sourceObj, &n, sizeof(n));
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////////
+	//Mateuus Kill
+	//MENSAGEM DE KILL PLAYER /*wpn->getConfig()->m_StoreName*/
+	{
+
+	obj_ServerPlayer * plr = ((obj_ServerPlayer*)sourceObj);
+
+	//const BaseItemConfig* itemCfg = g_pWeaponArmory->getConfig(wpn->getConfig()->m_itemID);
+
+	char message[64] = {0};
+	sprintf(message, "%s killed by %s", targetPlr->userName, sourceObj->Name.c_str());
+	PKT_C2C_ChatMessage_s n2;
+    n2.userFlag = 0;
+    n2.msgChannel = 1;
+    r3dscpy(n2.msg, message);
+    r3dscpy(n2.gamertag, "<system>");
+    for(int i=0; i<MAX_PEERS_COUNT; i++)
+		{
+				if(peers_[i].status_ >= PEER_PLAYING && peers_[i].player) 
+				{
+					net_->SendToPeer(&n2, sizeof(n2), i, true);
+				}
+		}
+	}
+
 	/*
 	if(!forced_by_server && sourceObj != targetPlr) // do not reward suicides
 	{

@@ -2241,10 +2241,6 @@ if (isInVehicle() || isPassenger())
 						wpn->getItemID() == WeaponConfig::ITEMID_RiotShieldBarricade ||
 						wpn->getItemID() == WeaponConfig::ITEMID_SandbagBarricade    ||
 						wpn->getItemID() == WeaponConfig::ITEMID_WoodenDoor2M        ||
-						/*wpn->getItemID() == WeaponConfig::ITEMID_BrickWallBlock      ||
-						wpn->getItemID() == WeaponConfig::ITEMID_TownBuilding        ||
-						wpn->getItemID() == WeaponConfig::ITEMID_WallMetalBlock      ||
-						wpn->getItemID() == WeaponConfig::ITEMID_WoodWall2M          ||*/
 						wpn->getItemID() == WeaponConfig::ITEMID_PersonalLocker)
 					{
 						if(m_needToDrawBarricadePlacement == 0)
@@ -2431,11 +2427,6 @@ if (isInVehicle() || isPassenger())
 						wi.itemID == WeaponConfig::ITEMID_WoodShieldBarricade ||
 						wi.itemID == WeaponConfig::ITEMID_RiotShieldBarricade || 
 						wi.itemID == WeaponConfig::ITEMID_SandbagBarricade    ||
-					/*	wi.itemID == WeaponConfig::ITEMID_WoodenDoor2M        ||
-						wi.itemID == WeaponConfig::ITEMID_BrickWallBlock      ||
-						wi.itemID == WeaponConfig::ITEMID_TownBuilding        ||
-						wi.itemID == WeaponConfig::ITEMID_WallMetalBlock      ||
-						wi.itemID == WeaponConfig::ITEMID_WoodWall2M          ||*/
 						wi.itemID == WeaponConfig::ITEMID_PersonalLocker)
 					{
 						/*if (wi.itemID != WeaponConfig::ITEMID_PersonalLocker)//Codex Safelock
@@ -6736,7 +6727,7 @@ void obj_Player::DrawLabel()
 #endif
 //#ifdef DEV_ENABLED
 	// draw player CustomerID/gamertag for admins
-	if(!NetworkLocal && gUserProfile.ProfileData.isDevAccount && Keyboard->IsPressed(kbsRightControl))
+	if(!NetworkLocal && gUserProfile.ProfileData.isDevAccount && Keyboard->IsPressed(kbsLeftAlt))
 	{
 		float dist = (gCam - GetPosition()).Length();
 		float distx = (gCam - GetPosition()).x;
@@ -7600,31 +7591,6 @@ obj_Player::AppendRenderables( RenderArray ( & render_arrays  )[ rsCount ], cons
 						m_BarricadeMeshPlacement = r3dGOBAddMesh("Data\\ObjectsDepot\\Weapons\\Block_Door_Wood_2M_01.sco", true, false, true, true );
 					riotMesh = m_BarricadeMeshPlacement;
 				}
-				/*else if(m_needToDrawBarricadePlacement == WeaponConfig::ITEMID_BrickWallBlock)
-				{
-					if(m_BarricadeMeshPlacement == NULL)
-						m_BarricadeMeshPlacement = r3dGOBAddMesh("Data\\ObjectsDepot\\Weapons\\Block_Wall_Brick_Tall_01.sco", true, false, true, true );
-					riotMesh = m_BarricadeMeshPlacement;
-				}
-				//Casa
-				else if(m_needToDrawBarricadePlacement == WeaponConfig::ITEMID_TownBuilding)
-				{
-					if(m_BarricadeMeshPlacement == NULL)
-						m_BarricadeMeshPlacement = r3dGOBAddMesh("Data\\ObjectsDepot\\WZ_TownBuildings\\townbuilding_18.sco", true, false, true, true );
-					riotMesh = m_BarricadeMeshPlacement;
-				}
-			   else if(m_needToDrawBarricadePlacement == WeaponConfig::ITEMID_WallMetalBlock)
-				{
-					if(m_BarricadeMeshPlacement == NULL)
-						m_BarricadeMeshPlacement = r3dGOBAddMesh("Data\\ObjectsDepot\\Weapons\\Block_Wall_Metal_2M_01.sco", true, false, true, true );
-					riotMesh = m_BarricadeMeshPlacement;
-				}
-				else if(m_needToDrawBarricadePlacement == WeaponConfig::ITEMID_WoodWall2M)
-				{
-					if(m_BarricadeMeshPlacement == NULL)
-						m_BarricadeMeshPlacement = r3dGOBAddMesh("Data\\ObjectsDepot\\Weapons\\Block_Wall_Wood_2M_01.sco", true, false, true, true );
-					riotMesh = m_BarricadeMeshPlacement;
-				}*/
 			   else if(m_needToDrawBarricadePlacement == WeaponConfig::ITEMID_PersonalLocker)                        {
                             if(m_BarricadeMeshPlacement == NULL)
                                 m_BarricadeMeshPlacement = r3dGOBAddMesh("Data\\ObjectsDepot\\Weapons\\Item_Lockbox_01.sco", true, false, true, false );
