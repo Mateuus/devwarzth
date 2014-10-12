@@ -67,7 +67,7 @@ char ip[64];
 
 void InitTs3Server()
 {
-	ts3server_createVirtualServer(9987, "167.114.32.63", "warzthvoipserver", "", 32, &svHandlerID);
+	ts3server_createVirtualServer(9987, "127.0.0.1", "warzthvoipserver", "", 32, &svHandlerID);
 	ts3server_setVirtualServerVariableAsString(svHandlerID, VIRTUALSERVER_PASSWORD, "warzthvoip");
 	ts3server_flushVirtualServerVariable(svHandlerID);
 }
@@ -290,7 +290,7 @@ void InitTs3()
 
 		char plr3msg[128] = {0};
 		sprintf(plr3msg,"%d",gUserProfile.CustomerID);
-		ts3client_startConnection(scHandlerID, identity, "167.114.32.63", 9987,plr3msg, NULL, "", "warzthvoip");
+		ts3client_startConnection(scHandlerID, identity, "127.0.0.1", 9987,plr3msg, NULL, "", "warzthvoip");
 
 		::Sleep(3000);
 		int status;
@@ -1491,7 +1491,7 @@ void UpdateTs3Server()
 						}
 						char plr3msg[128] = {0};
 						sprintf(plr3msg,"%d",gUserProfile.CustomerID);
-						ts3client_startConnection(scHandlerID, identity, "167.114.32.63", 9987,plr3msg, NULL, "", "warzthvoip");
+						ts3client_startConnection(scHandlerID, identity, "127.0.0.1", 9987,plr3msg, NULL, "", "warzthvoip");
 						sprintf(ip,plr->ip);
 
 						char* mode;

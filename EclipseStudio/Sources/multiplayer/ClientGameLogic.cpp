@@ -797,6 +797,10 @@ IMPL_PACKET_FUNC(ClientGameLogic, PKT_S2C_CreateDroppedItem)
 	obj_DroppedItem* obj = (obj_DroppedItem*)srv_CreateGameObject("obj_DroppedItem", "obj_DroppedItem", n.pos);
 	obj->SetNetworkID(n.spawnID);
 	obj->m_Item    = n.Item;
+	//Codex WoodBox
+	obj->SpawnedItem = n.SpawnedItem;
+	obj->LootID = n.LootID;
+	/////////////////////////////////////
 	obj->OnCreate();
 }
 

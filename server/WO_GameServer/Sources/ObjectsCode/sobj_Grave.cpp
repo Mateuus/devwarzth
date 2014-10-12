@@ -52,7 +52,7 @@ BOOL obj_Grave::OnDestroy()
 BOOL obj_Grave::Update()
 {
 	__int64 utcTime;
-	if(_time64(&utcTime) > m_Note.SpawnTime + (m_Note.ExpireMins * 60))
+	if(_time64(&utcTime) > m_Note.SpawnTime + (m_Note.ExpireMins * 30))//Grave Expirar era 60 minutos agora é 30
 	{
 		r3dOutToLog("obj_Grave %p expired\n", this);
 		setActiveFlag(0);

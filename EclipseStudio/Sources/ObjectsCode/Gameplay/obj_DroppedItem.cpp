@@ -58,9 +58,73 @@ BOOL obj_DroppedItem::OnCreate()
 				r3dError("spawned item is not model");
 				break;
 		}
-		cpMeshName = cfg->m_ModelPath;
+		//cpMeshName = cfg->m_ModelPath;
+
+		/////////////////////////////////////////////////////////////////////////////////////////////
+		//Codex WoodBox
+		if (SpawnedItem == true)
+		{
+			switch(gClientLogic().m_gameInfo.mapId)
+			{
+			case GBGameInfo::MAPID_UB_CaliWood:
+					if (LootID != cfg->m_itemID) // For all LootIDs
+					{
+							cpMeshName = "data/objectsdepot/Weapons/item_lootcrate_01.sco";
+					}
+					else 
+					{
+							cpMeshName = cfg->m_ModelPath;
+							SpawnedItem=false;
+					}
+					break;
+
+			default:
+					switch(LootID) // Specific lootID for other maps
+					{
+					///////////////////////////////////////////////////////////////////////////
+					//Normal - WoodBox - Armas
+					case 301097:
+							cpMeshName = "data/objectsdepot/Weapons/item_lootcrate_01.sco";
+							break;
+					///////////////////////////////////////////////////////////////////////////
+					//Normal - WoodBox - Comidas
+					case 301098:
+							cpMeshName = "data/objectsdepot/Weapons/item_lootcrate_01.sco";
+							break;
+					///////////////////////////////////////////////////////////////////////////
+					//Normal - WoodBox - Medical
+					case 301099:
+							cpMeshName = "data/objectsdepot/Weapons/item_lootcrate_01.sco";
+							break;
+					///////////////////////////////////////////////////////////////////////////
+                    //Normal - WoodBox - Coletes/Mochilas
+					case 301100:
+							cpMeshName = "data/objectsdepot/Weapons/item_lootcrate_01.sco";
+							break;
+					///////////////////////////////////////////////////////////////////////////
+                    //Normal - WoodBox - Evento 1
+					case 301101:
+							cpMeshName = "data/objectsdepot/Weapons/item_lootcrate_01.sco";
+							break;
+					///////////////////////////////////////////////////////////////////////////
+					//Normal - WoodBox - Evento 2
+					case 301102:
+							cpMeshName = "data/objectsdepot/Weapons/item_lootcrate_01.sco";
+							break;
+					///////////////////////////////////////////////////////////////////////////
+					default:
+							cpMeshName = cfg->m_ModelPath;
+							SpawnedItem=false;
+					}
+			}
+		}
+		else
+		{
+			cpMeshName = cfg->m_ModelPath;
+		}
 	}
-	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	if(!parent::Load(cpMeshName)) 
 		return FALSE;
 
@@ -68,6 +132,11 @@ BOOL obj_DroppedItem::OnCreate()
 	{
 		m_ActionUI_Title = gLangMngr.getString("Money");
 		m_ActionUI_Msg = gLangMngr.getString("HoldEToPickUpMoney");
+	}
+	else if (SpawnedItem == true)
+	{
+		m_ActionUI_Title = gLangMngr.getString("WoodBox");//$FR_PAUSE_USE_ITEM");
+		m_ActionUI_Msg = gLangMngr.getString("HoldEToPickUpItem");
 	}
 	else
 	{
@@ -145,6 +214,8 @@ void obj_DroppedItem::AppendRenderables( RenderArray ( & render_arrays )[ rsCoun
 
 		rend.Init( MeshGameObject::GetObjectLodMesh(), this );
 		rend.SortValue = 0;
+		if (SpawnedItem == true)//Codex WoodBox
+		rend.Parent->SetScale(r3dPoint3D(1.15,1.15,1.15));//Codex WoodBox
 		
 		render_arrays[ rsFillGBufferEffects ].PushBack( rend );
 	}

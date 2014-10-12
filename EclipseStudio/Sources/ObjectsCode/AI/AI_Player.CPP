@@ -6522,10 +6522,13 @@ void obj_Player::DrawLabel()
 		else
 			Font_Label->PrintF(r3dRenderer->ScreenW-85, 0, r3dColor(0,255,68), "FPS: %.1f", r3dGetAvgFPS());
 
+	if(gUserProfile.ProfileData.isDevAccount)//Somente Dev vai ver o Ping
+	{
 		if(gClientLogic().net_->lastPing_ > 50)
 			Font_Label->PrintF(r3dRenderer->ScreenW-85, 15, r3dColor(255,0,0), "PING: %i", gClientLogic().net_->lastPing_);
 		else
 			Font_Label->PrintF(r3dRenderer->ScreenW-85, 15, r3dColor(0,255,68), "PING: %i", gClientLogic().net_->lastPing_);
+	}
 
 
 

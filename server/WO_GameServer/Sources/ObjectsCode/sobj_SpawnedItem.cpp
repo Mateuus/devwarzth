@@ -74,6 +74,11 @@ DefaultPacket* obj_SpawnedItem::NetGetCreatePacket(int* out_size)
 	n.spawnID = toP2pNetId(GetNetworkID());
 	n.pos     = GetPosition();
 	n.Item    = m_Item;
+	///////////////////////
+	//Codex WoodBox
+    n.SpawnedItem = true;
+	n.LootID = LootID;
+	///////////////////////
 
 	*out_size = sizeof(n);
 	return &n;

@@ -9,6 +9,9 @@ class obj_DroppedItem : public SharedUsableItem
 	DECLARE_CLASS(obj_DroppedItem, SharedUsableItem)
 public:
 	wiInventoryItem	m_Item;
+	//Codex WoodBox
+	bool SpawnedItem;
+	int LootID;
 	
 public:
 	obj_DroppedItem();
