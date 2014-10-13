@@ -4,6 +4,7 @@
 enum EPlayerRewardID
 {
 	RWD_ZombieKill		= 1,	//Standard
+	RWD_ZombieKillP		= 2,	//Standard
 		
 	RWD_MAX_REWARD_ID	= 512,
 };

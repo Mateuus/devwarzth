@@ -33,7 +33,8 @@ void CGameRewards::InitDefaultRewards()
 {
 	// HERE is COPY-PASTED CODE FROM ExportDefaultRewards()
 	// USED FOR SERVER
-	SetReward(1, "ZombieKill", 5, 5, 10, 10);
+	SetReward(1, "ZombieKill",  15, 15, 10, 10);
+	SetReward(2, "ZombieKillP", 40, 40, 10, 10);
 }
 
 void CGameRewards::ExportDefaultRewards()

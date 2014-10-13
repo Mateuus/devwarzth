@@ -113,7 +113,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="copying exe"
-				CommandLine="copy $(TargetPath) ..\..\bin\"
+				CommandLine="copy $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 		<Configuration

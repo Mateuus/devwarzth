@@ -1409,7 +1409,17 @@ bool obj_Zombie::ApplyDamage(GameObject* fromObj, float damage, int bodyPart, ST
 		if(fromObj->Class->Name == "obj_ServerPlayer")
 		{
 			obj_ServerPlayer* plr = (obj_ServerPlayer*)fromObj;
-			gServerLogic.AddPlayerReward(plr, RWD_ZombieKill,0);
+
+			if(plr->profile_.ProfileData.isPremium)//Mateuus AumentaXP de Premium
+			{
+			  gServerLogic.AddPlayerReward(plr, RWD_ZombieKillP,0);
+			}
+			else
+			{
+			  gServerLogic.AddPlayerReward(plr, RWD_ZombieKill,0);
+			}
+
+
 			if (plr->loadout_->Mission1 == 2)
 			{
 				plr->loadout_->Mission1ZKill += 1;
