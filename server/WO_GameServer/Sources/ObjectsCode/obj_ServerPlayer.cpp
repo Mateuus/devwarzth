@@ -125,7 +125,8 @@ BOOL obj_ServerPlayer::OnCreate()
 	myPacketSequence = 0;
 	clientPacketSequence = 0;
 	packetBarrierReason = "";
-	PlayerOnVehicle=false; //Codex Carros
+	PlayerOnVehicle = false; //Codex Carros
+	dieForExplosion = false;//Codex Carros
 
 	FireHitCount = 0;
 
