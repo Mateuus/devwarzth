@@ -2429,12 +2429,8 @@ if (isInVehicle() || isPassenger())
 						wi.itemID == WeaponConfig::ITEMID_SandbagBarricade    ||
 						wi.itemID == WeaponConfig::ITEMID_PersonalLocker)
 					{
-						/*if (wi.itemID != WeaponConfig::ITEMID_PersonalLocker)//Codex Safelock
-						var1 = (m_fPlayerRotation) + R3D_RAD2DEG(bodyAdjust_x) + 180;
-						else
 						var1 = (m_fPlayerRotation) + R3D_RAD2DEG(bodyAdjust_x) + 180;
 						needCorrectPos = true; 
-						SoundSys.PlayAndForget(SoundSys.GetEventIDByPath("Sounds/WarZ/PlayerSounds/PLAYER_DROPITEM"), GetPosition());*/
 					}
 
 					if(needCorrectPos)
