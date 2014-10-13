@@ -679,6 +679,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Sources\ObjectsCode\obj_ServerVaultNPC.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Sources\ObjectsCode\obj_ServerVaultNPC.h"
+					>
+				</File>
+				<File
 					RelativePath=".\Sources\ObjectsCode\ServerDummyObjects.cpp"
 					>
 				</File>

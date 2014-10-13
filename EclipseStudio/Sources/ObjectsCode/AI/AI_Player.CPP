@@ -75,7 +75,7 @@
 #include "..\..\ui\HUDActionUI.h"
 #include "..\..\ui\HUDAttachments.h"
 #include "..\..\ui\HUDGeneralStore.h"
-#include "..\..\ui\HUDVault.h"
+#include "..\..\ui\HUDVault.h"//Codex Vault
 #include "..\..\ui\HUDRepair.h"
 //#include "..\..\ui\HUDSafeLock.h"//Codex Safelock
 
@@ -90,7 +90,7 @@ extern HUDAttachments*	hudAttm;
 //extern HUDCraft*	hudCraft;//Codex Craft
 extern HUDActionUI*	hudActionUI;
 extern HUDGeneralStore*	hudGeneralStore;
-extern HUDVault* hudVault;
+extern HUDVault* hudVault;//Codex Vault
 extern HUDTrade* hudTrade;
 extern HUDRepair* hudRepair;
 //extern HUDSafeLock* hudSafeLock;//Codex Safelock

@@ -151,6 +151,7 @@ class obj_ServerPlayer : public GameObject, INetworkHelper
     bool firstTime;
 	void DoRemoveAllItems(obj_ServerPlayer* plr);
 	void DoRemoveItems(int slotid);
+	void        DoRemoveSafeLockItems(int slotid, int quantity, int RemQuantity);//Codex Safelock //Codex Vault
 	void		UseItem_Barricade(const r3dPoint3D& pos, float rotX, uint32_t itemID);
 	void		UseItem_ApplyEffect(const PKT_C2C_PlayerUseItem_s& n, uint32_t itemID);
 
@@ -215,6 +216,8 @@ public:
 	void		OnNetPacket(const PKT_C2S_BackpackSwap_s& n);
 	void		OnNetPacket(const PKT_C2S_BackpackJoin_s& n);
 	void		OnNetPacket(const PKT_C2S_InventoryOp_s& n);
+    void		OnNetPacket(const PKT_C2S_VaultBackpackToInv_s& n); //Codex Vault
+	void		OnNetPacket(const PKT_C2S_VaultBackpackFromInv_s& n); //Codex Vault
 	void		OnNetPacket(const PKT_C2S_DisconnectReq_s& n);
 	void		OnNetPacket(const PKT_C2S_UnloadClipReq_s& n); //Unload Clip
 	void 		OnNetPacket(const PKT_C2S_GroupInvite_s& n);

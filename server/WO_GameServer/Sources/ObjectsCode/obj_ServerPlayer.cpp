@@ -3,6 +3,7 @@
 
 #include "obj_ServerPlayer.h"
 #include "ObjectsCode/Vehicles/obj_ServerVehicle.h"//Codex Carros
+#include "../EclipseStudio/Sources/backend/WOBackendAPI.h"//Codex Vault //Codex Safelock
 
 #include "ServerWeapons/ServerWeapon.h"
 #include "ServerWeapons/ServerGear.h"
@@ -715,6 +716,24 @@ void obj_ServerPlayer::DoRemoveItems(int slotid)
 	loadout_->Items[slotid].Reset();
 	OnBackpackChanged(slotid);
 }
+///////////////////////////////////////////////////////////////
+//Codex Safelock //Codex Vault
+void obj_ServerPlayer::DoRemoveSafeLockItems(int slotid, int quantity, int RemQuantity)
+{
+	PKT_S2C_BackpackModify_s n;
+	n.SlotTo     = slotid;
+	n.Quantity   = quantity;
+	n.dbg_ItemID = loadout_->Items[slotid].itemID;
+	gServerLogic.p2pSendToPeer(peerId_, this, &n, sizeof(n));
+
+    loadout_->Items[slotid].quantity -= RemQuantity;
+	if(loadout_->Items[slotid].quantity <= 0)
+	{
+	   loadout_->Items[slotid].Reset();
+	}
+	OnBackpackChanged(slotid);
+}
+/////////////////////////////////////////////////////////////
 void obj_ServerPlayer::DoRemoveAllItems(obj_ServerPlayer* plr)
 {
 	for (int i =0;i<72;i++)
@@ -3241,6 +3260,7 @@ void obj_ServerPlayer::OnNetPacket(const PKT_C2S_BackpackSwap_s& n)
 
 	OnBackpackChanged(n.SlotFrom);
 	OnBackpackChanged(n.SlotTo);
+	gServerLogic.ApiPlayerUpdateChar(this); //Codex Vault
 	return;
 }
 
@@ -3270,6 +3290,7 @@ void obj_ServerPlayer::OnNetPacket(const PKT_C2S_BackpackJoin_s& n)
 
 	OnBackpackChanged(n.SlotFrom);
 	OnBackpackChanged(n.SlotTo);
+	gServerLogic.ApiPlayerUpdateChar(this); //Codex Vault
 	return;
 }
 
@@ -3458,6 +3479,71 @@ void obj_ServerPlayer::OnNetPacket(const PKT_C2S_HackShieldLog_s& n)
 	}
 	LastHackShieldLog = r3dGetTime();
 }
+
+/////////////////////////////////////////////////////////////////////////////////
+//Codex Vault
+void obj_ServerPlayer::OnNetPacket(const PKT_C2S_VaultBackpackToInv_s& n) // de mi al inventario
+{
+	wiInventoryItem item = loadout_->Items[n.m_gridFrom];
+
+	if (n.Quantity!=0 && n.Inventory != 0)
+	{
+		int RemoveQnt = 0;	
+		//int Durability = item.Durability;
+		item.quantity -= n.Quantity;
+		RemoveQnt = item.quantity;
+		r3dOutToLog("#### Quantity deleted: %i\n",n.Quantity);
+		DoRemoveSafeLockItems(n.m_gridFrom,RemoveQnt,n.Quantity);
+		gServerLogic.ApiPlayerUpdateChar(this);
+
+		char* g_ServerApiKey = "bvx425698dg6GsnxwedszF";
+		CWOBackendReq req("api_GetInventoryData.aspx");
+		req.AddSessionInfo(profile_.CustomerID, profile_.SessionID);
+		req.AddParam("skey1",  g_ServerApiKey);
+		req.AddParam("Data", 2);
+		req.AddParam("Inventory", n.Inventory+1);//(int)m_inventoryID);
+		req.AddParam("CustomerID", profile_.CustomerID);
+		req.AddParam("CharID", 0);
+		req.AddParam("Slot", -1);
+		req.AddParam("ItemID", item.itemID);
+		req.AddParam("Quantity", n.Quantity);
+		req.AddParam("Var1", n.var1);
+		req.AddParam("Var2", n.var2);
+		const WeaponConfig* wc = g_pWeaponArmory->getWeaponConfig(item.itemID);
+		if (wc)
+		req.AddParam("Category",  wc->category);
+		else
+		req.AddParam("Category",  0);
+
+		//req.AddParam("Durability",  Durability);
+
+		if(!req.Issue())
+		{
+			r3dOutToLog("GetInventoryData FAILED, code: %d\n", req.resultCode_);
+			return;
+		}
+	}
+}
+
+void obj_ServerPlayer::OnNetPacket(const PKT_C2S_VaultBackpackFromInv_s& n) // del inventario a mi
+{
+
+	r3dOutToLog("#### ItemID %i InventoryID %i Var1 %i Var2 %i Quantity %i\n",n.itemID,n.m_inventoryID,n.var1,n.var2,n.Quantity);
+
+	wiInventoryItem wi;
+	wi.InventoryID = n.m_inventoryID;
+	wi.itemID   = n.itemID;
+	wi.quantity = n.Quantity;	
+	wi.Var1 = n.var1;
+	wi.Var2 = n.var2;
+	//wi.Durability = n.Durability;
+	BackpackAddItem(wi);
+	r3dOutToLog("#### HUDVault add item from inventory: %d added!\n", n.itemID);
+	gServerLogic.ApiPlayerUpdateChar(this);
+
+}
+/////////////////////////////////////////////////////////////////////////////////
+
 void obj_ServerPlayer::OnNetPacket(const PKT_C2S_SendHelpCall_s& n)
 {
 	//RelayPacket(&n, sizeof(n), true);
@@ -4295,6 +4381,8 @@ BOOL obj_ServerPlayer::OnNetReceive(DWORD EventID, const void* packetData, int p
 		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2S_BackpackSwap);
 		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2S_BackpackJoin);
 		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2S_InventoryOp);
+		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2S_VaultBackpackToInv);   //Codex Vault
+		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2S_VaultBackpackFromInv); //Codex Vault
 		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2S_FallingDamage);
 		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2S_PlayerEquipAttachment);
 		DEFINE_GAMEOBJ_PACKET_HANDLER(PKT_C2S_PlayerRemoveAttachment);

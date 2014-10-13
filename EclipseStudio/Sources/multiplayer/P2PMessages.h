@@ -64,11 +64,11 @@ enum pkttype_e
 
   PKT_C2S_BulletValidateConfig, // for check cheats.
   PKT_C2S_ValidateBackpack, // for check sync
-  //PKT_C2S_ApplyDamageToAnimals,
-PKT_C2S_WpnLog,
-PKT_C2S_PlayerState,
+//PKT_C2S_ApplyDamageToAnimals,
+  PKT_C2S_WpnLog,
+  PKT_C2S_PlayerState,
 //PKT_C2C_GroupJoin, // Groups Packet
-PKT_S2C_SetPlayerGroupID,
+  PKT_S2C_SetPlayerGroupID,
   PKT_S2C_PlayerNameJoined,
   PKT_S2C_PlayerNameLeft,
 
@@ -102,9 +102,9 @@ PKT_S2C_SetPlayerGroupID,
   PKT_C2C_UnarmedCombat,  // Unarmed Combat
 
  // PKT_S2C_CreateSafeLock,
-PKT_C2S_PlayerAcceptMission,
-PKT_C2s_PlayerSetMissionStatus,
-PKT_C2S_PlayerSetObStatus,
+  PKT_C2S_PlayerAcceptMission,
+  PKT_C2s_PlayerSetMissionStatus,
+  PKT_C2S_PlayerSetObStatus,
   PKT_S2C_SetPlayerVitals,
   PKT_S2C_SetPlayerLoadout,	// indicate loadout change for not local players
   PKT_S2C_SetPlayerAttachments,
@@ -113,7 +113,7 @@ PKT_C2S_PlayerSetObStatus,
   PKT_C2S_PlayerRemoveAttachment,
   PKT_C2C_PlayerSwitchWeapon,
   PKT_C2C_PlayerUseItem,
-   PKT_C2C_PlayerCraftItem,
+  PKT_C2C_PlayerCraftItem,
   PKT_S2C_PlayerUsedItemAns, // this packet is sent for immediate action items, like bandages, or morphine shot
   PKT_C2S_PlayerChangeBackpack,
   PKT_C2S_BackpackDrop,		// player backpack operation
@@ -122,6 +122,8 @@ PKT_C2S_PlayerSetObStatus,
   PKT_S2C_BackpackAddNew,	// item added to backpack
   PKT_S2C_BackpackModify,	// item quantity changed in backpack
   PKT_C2S_InventoryOp,		// player inventory operation
+  PKT_C2S_VaultBackpackToInv,		// player inventory operation //Codex Vault
+  PKT_C2S_VaultBackpackFromInv, //Codex Vault
   PKT_S2C_CreateNetObject,
   PKT_S2C_DestroyNetObject,
   PKT_C2S_UseNetObject,
@@ -130,10 +132,10 @@ PKT_C2S_PlayerSetObStatus,
   PKT_S2C_CreateDroppedItem,
 
   PKT_S2C_CreateGrave,
-    PKT_S2C_CreateSafeLock,
+  PKT_S2C_CreateSafeLock,
   PKT_S2C_SetGraveData,
-    PKT_S2C_SetSafeLockData,
-	PKT_S2C_CreateBuilding,
+  PKT_S2C_SetSafeLockData,
+  PKT_S2C_CreateBuilding,
   // server notes
   PKT_C2S_TradeBackToOp,
   PKT_C2S_TradeRequest,
@@ -715,6 +717,26 @@ struct PKT_C2S_InventoryOp_s : public DefaultPacketMixin<PKT_C2S_InventoryOp>
 	__int64		InventoryID;
 	int		Quantity;
 };
+/////////////////////////////////////////////////////////////////////////////
+//Codex Vault
+struct PKT_C2S_VaultBackpackToInv_s : public DefaultPacketMixin<PKT_C2S_VaultBackpackToInv>
+{
+	int Inventory;
+	int m_gridFrom;
+	int var1;
+	int var2;
+	WORD		Quantity;	// target quantity, 0 for removing item
+};
+struct PKT_C2S_VaultBackpackFromInv_s : public DefaultPacketMixin<PKT_C2S_VaultBackpackFromInv>
+{
+	DWORD itemID;
+	int var1;
+	int var2;
+	int m_inventoryID;
+	//int Durability;
+	WORD		Quantity;	// target quantity, 0 for removing item*/
+};
+/////////////////////////////////////////////////////////////////////////////
 struct PKT_S2C_AnimalsMove_s : public DefaultPacketMixin<PKT_S2C_AnimalsMove>
 {
 	r3dVector angle;
