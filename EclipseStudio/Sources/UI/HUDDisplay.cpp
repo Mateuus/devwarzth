@@ -1114,13 +1114,9 @@ void HUDDisplay::eventChatMessage(r3dScaleformMovie* pMovie, const Scaleform::GF
 	{
 		flags|=1;
 	}
-	if(gUserProfile.ProfileData.isDevAccount)
+	if(gUserProfile.ProfileData.isPunisher)
 	{
 		flags|=2;
-	}
-	if(gUserProfile.ProfileData.isPremium)
-	{
-       flags|=3;
 	}
 
 	addChatMessage(currentTabIndex, userName, &s_chatMsg[start_text], flags);
@@ -1140,10 +1136,7 @@ void HUDDisplay::addChatMessage(int tabIndex, const char* user, const char* text
 	const char* userNameColor[] = {"#ffffff", "#ffffff"};
 
 	bool isUserLegend = (flags&1)?true:false;
-	//bool isUserPunisher = (flags&2)?true:false;
-	bool isUserDev = (flags&2)?true:false;
-	bool isPremium = (flags&3)?true:false;
-	//bool isPremium = gUserProfile.ProfileData.isPremium;
+	bool isUserPunisher = (flags&2)?true:false;
 
 
 	const char* userColor = userNameColor[isUserLegend?0:1];
@@ -1151,14 +1144,21 @@ void HUDDisplay::addChatMessage(int tabIndex, const char* user, const char* text
 	const char* namePrefix = "";
 
 
-	if(gUserProfile.ProfileData.isDevAccount)
+/*	if(gUserProfile.ProfileData.isDevAccount)
 	{
 		userColor = "#ff0000";
 		textColor = "#ff8800";
 		namePrefix = "&lt;DEV&gt;";
 	}
 	else
+	{*/
+	if(isUserPunisher)
 	{
+		userColor = "#ff0000";
+		textColor = "#ff8800";
+		namePrefix = "&lt;DEV&gt;";
+	}
+
 	if(isUserLegend)
 	{
 		userColor = "#FFFF00";
@@ -1166,13 +1166,13 @@ void HUDDisplay::addChatMessage(int tabIndex, const char* user, const char* text
 		namePrefix = "&lt;LEGEND&gt;";
 	}
 
-	if(isPremium)
+	if(gUserProfile.ProfileData.isPremium)
 	{
 		userColor = "#F9C700";
 		textColor = "#d0d0d0";
 		namePrefix = "&lt;PREMIUM&gt;";
 	}
-	}
+	//}
 
 	// dirty stl :)
 	std::string sUser = user;
