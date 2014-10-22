@@ -362,7 +362,7 @@ void obj_ServerPlayer::DoDeath()
 	//NOTE: server WZ_Char_SRV_SetStatus will clear player backpack, so make that CJobUpdateChar::Exec() won't update it
 	savedLoadout_ = *loadout_;
 
-	gServerLogic.ApiPlayerUpdateChar(this);
+	gServerLogic.ApiPlayerUpdateChar(this);//Salvar dados do Player quando morre
 
 	SetLatePacketsBarrier("death");
 
@@ -908,8 +908,8 @@ void obj_ServerPlayer::DoTrade(obj_ServerPlayer* plr , obj_ServerPlayer* plr2)
 		gServerLogic.p2pSendRawToPeer(plr->peerId_,&n,sizeof(n));
 		gServerLogic.p2pSendRawToPeer(plr2->peerId_,&n,sizeof(n));
 	}
-	gServerLogic.ApiPlayerUpdateChar(plr2);
-	gServerLogic.ApiPlayerUpdateChar(plr);
+	gServerLogic.ApiPlayerUpdateChar(plr2); //Salvar Trade
+	gServerLogic.ApiPlayerUpdateChar(plr);  //Salvar Trade
 }
 
 
@@ -1357,7 +1357,7 @@ BOOL obj_ServerPlayer::Update()
 		SendVitals = r3dGetTime();
 	}
 
-	float CHAR_UPDATE_INTERVAL = 60 + u_GetRandom(5,30);
+	/*float CHAR_UPDATE_INTERVAL = 60 + u_GetRandom(5,30);
 	if(curTime > lastCharUpdateTime_ + CHAR_UPDATE_INTERVAL)
 	{
 		lastCharUpdateTime_ = curTime;
@@ -1365,6 +1365,21 @@ BOOL obj_ServerPlayer::Update()
 	}
 
 	const float WORLD_UPDATE_INTERVAL = 1;
+	if(curTime > lastWorldUpdateTime_ + WORLD_UPDATE_INTERVAL)
+	{
+		lastWorldUpdateTime_ = curTime;
+		UpdateGameWorldFlags();
+	}
+	*/
+
+	const float CHAR_UPDATE_INTERVAL = 60;//Vai Salvar os dados dos players a cada 1 minuto (60 seconds)
+	if(curTime > lastCharUpdateTime_ + CHAR_UPDATE_INTERVAL)
+	{
+		lastCharUpdateTime_ = curTime;
+		gServerLogic.ApiPlayerUpdateChar(this);
+	}
+	
+	const float WORLD_UPDATE_INTERVAL = 0.5f;//Não seria melhor deixa 1 segundo ?
 	if(curTime > lastWorldUpdateTime_ + WORLD_UPDATE_INTERVAL)
 	{
 		lastWorldUpdateTime_ = curTime;
@@ -1832,7 +1847,7 @@ void obj_ServerPlayer::OnPlayerUpdateCharSuccess(wiInventoryItem wi,int slot)
 	gServerLogic.p2pSendToPeer(peerId_, this, &n, sizeof(n));
 
 	OnBackpackChanged(slot);
-	gServerLogic.ApiPlayerUpdateChar(this);
+	//gServerLogic.ApiPlayerUpdateChar(this);//Salvar a mochila do players ou não ??? melhor nao
 }
 
 void obj_ServerPlayer::BackpackDropItem(int idx)
@@ -1871,7 +1886,7 @@ void obj_ServerPlayer::BackpackDropItem(int idx)
 	// replace character saved loadout. if update will fail, we'll disconnect player and keep everything at sync
 	savedLoadout_ = job->CharData;*/
 
-	gServerLogic.ApiPlayerUpdateChar(this);
+	//gServerLogic.ApiPlayerUpdateChar(this);//nao basta atualizar só de 1 em 1 minuto ? isso vai causar deadlock acima de 50 Players, se tiver alguma outra maneira isso seria bem vindo.
 }
 
 void obj_ServerPlayer::OnBackpackChanged(int idx)
@@ -1906,7 +1921,7 @@ void obj_ServerPlayer::OnBackpackChanged(int idx)
 		OnLoadoutChanged();
 		break;
 	}
-	gServerLogic.ApiPlayerUpdateChar(this);
+	//gServerLogic.ApiPlayerUpdateChar(this); //Não necessita atualizar toda hora, deadlock
 }
 
 void obj_ServerPlayer::OnLoadoutChanged()
@@ -3213,7 +3228,9 @@ void obj_ServerPlayer::OnNetPacket(const PKT_C2S_BackpackDrop_s& n)
 	OnBackpackChanged(n.SlotFrom);
 
 	//[Krit] Save Char when drop item from Backpack
-	gServerLogic.ApiPlayerUpdateChar(this);
+	//Krit sua idea foi boa mas pra que atualizar direto isso vai da deadlock acima de 50 players, teremos que tem um FILHAPUTADEUMDEDICADO 
+	//gServerLogic.ApiPlayerUpdateChar(this);
+
 
 	/*CJobUpdateChar* job = new CJobUpdateChar(this);
 	job->CharData   = *loadout_;
@@ -3261,7 +3278,7 @@ void obj_ServerPlayer::OnNetPacket(const PKT_C2S_BackpackSwap_s& n)
 
 	OnBackpackChanged(n.SlotFrom);
 	OnBackpackChanged(n.SlotTo);
-	gServerLogic.ApiPlayerUpdateChar(this); //Codex Vault
+	//gServerLogic.ApiPlayerUpdateChar(this); //Codex Vault //Tenho que Ativar Depois nao sei como
 	return;
 }
 
@@ -3291,7 +3308,7 @@ void obj_ServerPlayer::OnNetPacket(const PKT_C2S_BackpackJoin_s& n)
 
 	OnBackpackChanged(n.SlotFrom);
 	OnBackpackChanged(n.SlotTo);
-	gServerLogic.ApiPlayerUpdateChar(this); //Codex Vault
+	//gServerLogic.ApiPlayerUpdateChar(this); //Codex Vault tenho que ativar depois nao sei por que
 	return;
 }
 

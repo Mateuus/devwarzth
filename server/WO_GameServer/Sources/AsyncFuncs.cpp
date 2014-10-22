@@ -400,7 +400,7 @@ void CJobSrvBuyItem::OnSuccess()
 		plr->profile_.ProfileData.GameDollars -= store.gd_pricePerm;
 
 	plr->BackpackAddItem(item);
-	gServerLogic.ApiPlayerUpdateChar(plr);
+	gServerLogic.ApiPlayerUpdateChar(plr);//ao compra item no market isso pode atualizar até por que nao vai ser toda hora
 
 	PKT_C2S_BuyItemAns_s n1;
 	n1.ansCode = 0;
