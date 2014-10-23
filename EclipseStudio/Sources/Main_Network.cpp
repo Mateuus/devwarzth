@@ -325,6 +325,9 @@ repeat_the_menu:
 	case GBGameInfo::MAPID_UB_Terra: 
 		r3dGameLevel::SetHomeDir("UB_Terra"); 
 		break;
+	case GBGameInfo::MAPID_UB_Mega: 
+		r3dGameLevel::SetHomeDir("UB_Mega"); 
+		break;
 	}
 
 	// start the game

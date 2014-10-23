@@ -67,7 +67,7 @@ char ip[64];
 
 void InitTs3Server()
 {
-	ts3server_createVirtualServer(9987, "127.0.0.1", "warzthvoipserver", "", 32, &svHandlerID);
+	ts3server_createVirtualServer(9987, "167.114.32.63", "warzthvoipserver", "", 32, &svHandlerID);
 	ts3server_setVirtualServerVariableAsString(svHandlerID, VIRTUALSERVER_PASSWORD, "warzthvoip");
 	ts3server_flushVirtualServerVariable(svHandlerID);
 }

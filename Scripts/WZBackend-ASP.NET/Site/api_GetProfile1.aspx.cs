@@ -38,6 +38,7 @@ public partial class api_GetProfile1 : WOApiWebPage
             xml.Append(xml_attr("GamePos5", reader["GamePos5"]));// Valley
             xml.Append(xml_attr("GamePos6", reader["GamePos6"]));// CryZ
             xml.Append(xml_attr("GamePos7", reader["GamePos7"]));// Terra
+            xml.Append(xml_attr("GamePos8", reader["GamePos8"]));// Terra
             xml.Append(xml_attr("GameFlags", reader["GameFlags"]));
             xml.Append(xml_attr("Health", reader["Health"]));
             xml.Append(xml_attr("Hunger", reader["Food"]));

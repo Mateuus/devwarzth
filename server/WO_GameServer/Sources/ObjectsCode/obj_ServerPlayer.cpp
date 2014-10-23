@@ -1548,9 +1548,9 @@ void obj_ServerPlayer::UpdateGameWorldFlags()
 	loadout_->GameFlags = 0;
 
 	//Spawn Protection Code here
-	if(loadout_->GameMapId == GBGameInfo::MAPID_UB_Valley || loadout_->GameMapId == GBGameInfo::MAPID_UB_Area51 || loadout_->GameMapId == GBGameInfo::MAPID_UB_CryZ || loadout_->GameMapId == GBGameInfo::MAPID_UB_Terra)
+	if(loadout_->GameMapId == GBGameInfo::MAPID_UB_Mega || loadout_->GameMapId == GBGameInfo::MAPID_UB_Valley || loadout_->GameMapId == GBGameInfo::MAPID_UB_Area51 || loadout_->GameMapId == GBGameInfo::MAPID_UB_CryZ || loadout_->GameMapId == GBGameInfo::MAPID_UB_Terra)
 	{
-		if((((r3dGetTime() - startPlayTime_) <= 20.0f)))
+		if((((r3dGetTime() - startPlayTime_) <= 30.0f)))
 		{
 			loadout_->GameFlags |= wiCharDataFull::GAMEFLAG_isSpawnProtected;
 			//loadout_->GameFlags |= wiCharDataFull::GAMEFLAG_NearPostBox;
@@ -1558,7 +1558,7 @@ void obj_ServerPlayer::UpdateGameWorldFlags()
 	}
 	else
 	{
-		if((((r3dGetTime() - startPlayTime_) <= 30.0f)))
+		if((((r3dGetTime() - startPlayTime_) <= 40.0f)))
 		{
 			loadout_->GameFlags |= wiCharDataFull::GAMEFLAG_isSpawnProtected;
 			//loadout_->GameFlags |= wiCharDataFull::GAMEFLAG_NearPostBox;

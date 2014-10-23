@@ -45,6 +45,7 @@ struct GBGameInfo
 	  MAPID_UB_Area51,
 	  MAPID_UB_CryZ,
 	  MAPID_UB_Terra,
+	  MAPID_UB_Mega,
 	  // NOTE: do *NOT* add maps inside current IDs, add ONLY at the end
 	  // otherwise current map statistics in DB will be broken
 	  MAPID_MAX_ID,

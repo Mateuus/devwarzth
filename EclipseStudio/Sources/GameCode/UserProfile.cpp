@@ -307,6 +307,8 @@ void CUserProfile::ParseLoadouts(pugi::xml_node& xmlItem)
 		   sscanf(xmlItem.attribute("GamePos6").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
 		else if (w.GameMapId == 8)// Terra
 		   sscanf(xmlItem.attribute("GamePos7").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
+		else if (w.GameMapId == 9)// Mega
+		   sscanf(xmlItem.attribute("GamePos8").value(), "%f %f %f %f", &w.GamePos.x, &w.GamePos.y, &w.GamePos.z, &w.GameDir);
 
 		w.GameFlags   = xmlItem.attribute("GameFlags").as_int();
 
