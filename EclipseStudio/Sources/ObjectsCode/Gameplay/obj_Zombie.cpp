@@ -284,7 +284,7 @@ BOOL obj_Zombie::OnCreate()
 {
 	r3d_assert(CreateParams.HeroItemID);
 	
-	bool HalloweenZombie = false;
+	bool HalloweenZombie = true;
 	if(CreateParams.HeroItemID > 1000000)
 	{
 		// special Halloween zombie

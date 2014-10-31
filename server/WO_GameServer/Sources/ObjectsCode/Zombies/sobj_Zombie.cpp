@@ -117,7 +117,7 @@ BOOL obj_Zombie::OnCreate()
 
 	FastZombie = u_GetRandom() > spawnObject->fastZombieChance;
 
-	HalloweenZombie = false; //NO more special zombies u_GetRandom() < (1.0f / 100) ? true : false; // every 100th zombie is special
+	HalloweenZombie = true; //NO more special zombies u_GetRandom() < (1.0f / 100) ? true : false; // every 100th zombie is special
 	if(HalloweenZombie) FastZombie = 1;
 
 	HeadIdx = u_random(heroConfig->getNumHeads());
@@ -1193,7 +1193,7 @@ DefaultPacket* obj_Zombie::NetGetCreatePacket(int* out_size)
 	n.FastZombie = (BYTE)FastZombie;
 	n.WalkSpeed  = WalkSpeed;
 	n.RunSpeed   = RunSpeed;
-	//if(HalloweenZombie) n.HeroItemID += 1000000;
+	if(HalloweenZombie) n.HeroItemID += 1000000;
 
 	*out_size = sizeof(n);
 	return &n;

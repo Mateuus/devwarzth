@@ -114,7 +114,7 @@ BOOL obj_ServerItemSpawnPoint::Update()
 	return parent::Update();
 }
 
-wiInventoryItem RollItem(const LootBoxConfig* lootCfg, int depth)
+/*wiInventoryItem RollItem(const LootBoxConfig* lootCfg, int depth)
 {
 	wiInventoryItem wi;
 	if(depth > 4)
@@ -213,6 +213,56 @@ wiInventoryItem RollItem(const LootBoxConfig* lootCfg, int depth)
 			return RollItem((const LootBoxConfig*)cfg2, ++depth);
 		break;
 		}
+	}
+	
+	return wi;
+}*/
+
+wiInventoryItem RollItem(const LootBoxConfig* lootCfg, int depth)
+{
+	wiInventoryItem wi;
+	if(depth > 4)
+	{
+		r3dOutToLog("!!! obj_ServerItemSpawnPoint: arrived to lootbox %d with big depth\n", lootCfg->m_itemID);
+		return wi;
+	}
+
+	r3d_assert(lootCfg);
+	double roll = (double)u_GetRandom();
+	//r3dOutToLog("Rolling %d %s, %d entries, roll:%f\n", lootCfg->m_itemID, lootCfg->m_StoreName, lootCfg->entries.size(), roll); CLOG_INDENT;
+
+	for(size_t i=0; i<lootCfg->entries.size(); i++)
+	{
+		const LootBoxConfig::LootEntry& le = lootCfg->entries[i];
+		if(roll > le.chance)
+			continue;
+		if(le.itemID == 0)
+		{
+			wi.itemID   = 'GOLD'; // special item for GameDollars
+			wi.quantity = (int)u_GetRandom((float)le.GDMin, (float)le.GDMax);
+			break;
+		}
+
+		wi.itemID   = le.itemID;
+		wi.quantity = 1;
+
+		// -1 is special "no roll" code
+		if(wi.itemID == -1) {
+			wi.itemID = 0;
+			break;
+		}
+
+		// check if this is nested lootbox
+		const BaseItemConfig* cfg2 = g_pWeaponArmory->getConfig(wi.itemID);
+		if(!cfg2) {
+			r3dOutToLog("!! lootbox %d contain not existing item %d\n", lootCfg->m_itemID, wi.itemID);
+			wi.itemID = 0;
+			break;
+		}
+		//r3dOutToLog("won %d %s\n", cfg2->m_itemID, cfg2->m_StoreName);
+		if(cfg2->category == storecat_LootBox)
+			return RollItem((const LootBoxConfig*)cfg2, ++depth);
+		break;
 	}
 	
 	return wi;
