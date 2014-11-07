@@ -1315,7 +1315,7 @@ void obj_Zombie::DoDeath()
 		obj->SetNetworkID(gServerLogic.GetFreeNetId());
 		obj->NetworkLocal = true;
 		// vars
-		obj->m_Item.itemID   = u_GetRandom() >= 0.75f ? 101087 : 101002;
+		obj->m_Item.itemID   = u_GetRandom() >= 0.75f ? 101112 : 101002;
 		obj->m_Item.quantity = 1;
 	}
 	if(HalloweenZombie && u_GetRandom() < 0.3f) // 30% to drop that helmet
