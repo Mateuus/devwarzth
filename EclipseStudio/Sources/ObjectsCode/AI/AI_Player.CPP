@@ -2113,7 +2113,14 @@ if (isInVehicle() || isPassenger())
 		//Codex Soco
 		if (!needExit)
 		{
-			if (InputMappingMngr->wasPressed(r3dInputMappingMngr::KS_PRIMARY_FIRE) || InputMappingMngr->isPressed(r3dInputMappingMngr::KS_PRIMARY_FIRE) && bAllowToUseWeapons && !bProne)  // Unarmed Combat
+			if((CurLoadout.GameFlags & wiCharDataFull::GAMEFLAG_NearPostBox) || (CurLoadout.GameFlags & wiCharDataFull::GAMEFLAG_isSpawnProtected))
+			{
+				//todo
+			}
+			else
+			{
+
+		    if (InputMappingMngr->wasPressed(r3dInputMappingMngr::KS_PRIMARY_FIRE) || InputMappingMngr->isPressed(r3dInputMappingMngr::KS_PRIMARY_FIRE) && bAllowToUseWeapons && !bProne)  // Unarmed Combat
 			{
 					if ((r3dGetTime() - punchtime) > 0.4 && NetworkLocal)
 					{
@@ -2140,6 +2147,9 @@ if (isInVehicle() || isPassenger())
 						
 					}
 			}
+
+			}
+
 			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 			if(g_toggle_aim->GetBool())
@@ -4776,7 +4786,7 @@ BOOL obj_Player::Update()
 			bAllowToUseWeapons = true;
 			if((CurLoadout.GameFlags & wiCharDataFull::GAMEFLAG_NearPostBox) || (CurLoadout.GameFlags & wiCharDataFull::GAMEFLAG_isSpawnProtected))
 
-				bAllowToUseWeapons = false;
+			bAllowToUseWeapons = false;
 			hudMain->showSafeZoneWarning(!bAllowToUseWeapons);
 
 		

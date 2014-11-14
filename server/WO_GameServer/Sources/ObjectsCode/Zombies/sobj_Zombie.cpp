@@ -117,7 +117,7 @@ BOOL obj_Zombie::OnCreate()
 
 	FastZombie = u_GetRandom() > spawnObject->fastZombieChance;
 
-	HalloweenZombie = true; //NO more special zombies u_GetRandom() < (1.0f / 100) ? true : false; // every 100th zombie is special
+	HalloweenZombie = false; //NO more special zombies u_GetRandom() < (1.0f / 100) ? true : false; // every 100th zombie is special
 	if(HalloweenZombie) FastZombie = 1;
 
 	HeadIdx = u_random(heroConfig->getNumHeads());
